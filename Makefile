@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/09/27 19:29:53 by motero           ###   ########.fr        #
+#    Updated: 2022/09/29 19:28:34 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,10 @@ NAME = fractol
 #                                 HEADERS                                     #
 #=============================================================================#
 
-HDR_NAME = fractol.h #here other headers too
+HDR_NAME = Fractol.h #here other headers too
 HDR_DIR = includes/
 HDRS = $(addprefix $(HDR_DIR), $(HDR_NAME))
-HDR_INC = -I includes -I libft/includes
+HDR_INC = -I includes -I libft/includes -I minilibx-linux/
 
 #=============================================================================#
 #                                 LIBRARIES                                     #
@@ -29,6 +29,16 @@ LIBFT_HDIR = libft/includes
 LIBFT_HDIR_INC = -I./libft/includes/
 LIB_BINARY = -Llibft -lft
 LIBFT = libft/libft.a
+
+#=============================================================================#
+#                                 MiniLIBX                                    #
+#=============================================================================#
+
+MINILIBX_HDIR = includes/minilibx-linux/
+MINILIBX_HDIR_INC = -I ./minilibx-linux/
+MINILIBX_BINARY = -Lmlx_linux -lmlx_Linux -L$(MINILIBX_HDIR) -Imlx_linux -lXext -lX11 -lm -lz
+MINILIBX = $(MINILIBX_HDIR)libmlx.a
+
 
 #=============================================================================#
 #                               SOURCES                                       #
@@ -53,8 +63,7 @@ OBJS = $(addprefix $(OBJS_PATH), $(OBJS_NAME))
 #=============================================================================#
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -Lmlx_linux -lmlx_Linux -L minilibx-linux -Imlx_linux -lXext -lX11 -lm
-
+CFLAGS = -Wall -Wextra -Werror -g 
 LIBA = ar rc
 LIBS = ranlib
 
@@ -137,7 +146,7 @@ normal := $(shell tput sgr0)
 #                                RULES                                        #
 #=============================================================================#
 
-all: check_libft project ${NAME} ${HDRS}
+all: check_libft check_mlx project ${NAME} ${HDRS}
 		@echo "\n $(GREEN) $(bold) \|/ \|/ \|/ \|/ \|/ \|/ \|/ \|/ \|/ \|/ \|/ \|/ \|/"
 		@echo "\t \t[ $(GREEN)✔$(NONE)] $(bold)Project is ready [ $(GREEN)✔$(NONE)]"
 		@echo "$(GREEN) $(bold) /|\ /|\ /|\ /|\ /|\ /|\ /|\ /|\ /|\ /|\ /|\ /|\ /|\ \n"
@@ -146,6 +155,11 @@ check_libft:
 		@echo "\n[ $(BLUE)$(bold)CHECKING LIBFT$(NONE)]"
 		@echo "============================================="
 		@make -C libft
+
+check_mlx:
+		@echo "\n[ $(BLUE)$(bold)CHECKING MINILIBX$(NONE)]"
+		@echo "============================================="
+		@make -C includes/minilibx-linux/ mlx
 
 project:
 		@echo "\n == $(bold)$(YELLOW)CHECKING PROJECT$(normal)=="
@@ -156,11 +170,11 @@ $(OBJS_PATH):
 		@echo "\t [ $(GREEN)✔$(NONE)] $@directory"
 
 $(OBJS_PATH)%.o: $(SRCS_DIR_PS)%.c $(HDRS)
-		@$(CC) $(CFLAGS) $(HDR_INC) $(LIBFT_HDIR_INC) -o $@ -c $<
+		@$(CC) $(CFLAGS) $(HDR_INC) $(LIBFT_HDIR_INC) $(MINILIBX_HDIR_INC) -o $@ -c $<
 		@echo "\t[ $(GREEN)✔$(NONE) ] $@ objet fractol"
 
 $(NAME): $(OBJS_PATH) $(OBJS) $(HDRS)
-		@$(CC) $(CFLAGS)  $(OBJS) $(LIB_BINARY) $(HDR_INC)  -o $@
+		@$(CC) $(CFLAGS) $(OBJS) $(LIB_BINARY) $(MINILIBX_BINARY) $(HDR_INC)  -o $@
 		@echo "\t[ $(GREEN)✔$(NONE) ] fractol"
 
 malloc_test: $(OBJS_PATH) $(OBJS)
