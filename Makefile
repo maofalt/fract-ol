@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/09/29 19:28:34 by motero           ###   ########.fr        #
+#    Updated: 2022/10/17 23:08:50 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,9 @@ MINILIBX = $(MINILIBX_HDIR)libmlx.a
 
 SRCS_DIR_PS = sources/
 SRCS_NAME_PS = main.c \
-
+			ft_calculate_mandelbrot.c \
+			ft_manage_events.c \
+			ft_render_images.c 
 
 SRCS_PS = $(addprefix $(SRCS_DIR_PS), $(SRCS_NAME_PS))
 

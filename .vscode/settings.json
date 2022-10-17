@@ -1,5 +1,9 @@
 {
     "files.associations": {
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "ft_calculate_mandelbrot": "c",
+        "libft.h": "c",
+        "x.h": "c",
+        "ft_render_images": "c"
     }
 }
