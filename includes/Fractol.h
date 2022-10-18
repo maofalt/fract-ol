@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/17 23:10:09 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/18 19:09:16 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
+# define RE_MAX 3
+# define IM_MAX 2.5
 # define MLX_ERROR 1
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 # define BLUE_PIXEL 0xFF
 # define WHITE_PIXEL 0xFFFFFF
+# define BLACK_PIXEL 0x0
 
 # include <limits.h>
 # include <math.h>
@@ -100,6 +103,6 @@ int		ft_render(t_data *data);
 /*                  CALCULATE MANDELBROT FUNCTIONS                            */
 /*############################################################################*/
 
-int		ft_cal_mandelbrot(t_img *img, t_mdbt mdbt);
+int		ft_cal_mandelbrot(t_img *img);
 
 #endif

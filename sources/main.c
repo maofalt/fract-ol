@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/17 23:01:35 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/18 17:30:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(void)
 	if (data.mlx_ptr == NULL)
 		return (MLX_ERROR);
 	data.win_ptr = mlx_new_window(data.mlx_ptr,
-			WINDOW_WIDTH, WINDOW_HEIGHT, "My first window!");
+			WINDOW_WIDTH, WINDOW_HEIGHT, "Mandelbrot");
 	if (data.win_ptr == NULL)
 	{
 		free(data.win_ptr);

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/17 23:10:26 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/18 19:08:43 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_render(t_data *data)
 	ft_render_background(&data->img, WHITE_PIXEL);
 	ft_render_rect(&data->img, (t_rect){WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100,
 		100, 100, GREEN_PIXEL});
-	ft_render_rect(&data->img, (t_rect){0, 0, 100, 100, RED_PIXEL});
+	ft_cal_mandelbrot(&data->img);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->img.mlx_img, 0, 0);
 	return (0);

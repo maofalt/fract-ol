@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/17 23:08:50 by motero           ###   ########.fr        #
+#    Updated: 2022/10/18 19:17:06 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -199,7 +199,7 @@ execute_profiler :
 
 run_prof: fractol_prof
 	@echo "\n[ $(BLUE)$(bold)Executing binary$(NONE) ]"
-	./push_swap_prof $(var)
+	./fractol_prof $(var)
 
 $(OBJS_PATH_PROFILER):
 		@mkdir $@
