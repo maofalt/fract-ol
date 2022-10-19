@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/18 19:09:16 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/19 17:18:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
-# define RE_MAX 3
-# define IM_MAX 2.5
+# define RE_MAX 2.5
+# define IM_MAX 2.25
 # define MLX_ERROR 1
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
@@ -50,6 +50,7 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+/* Struucture transporting  pointer from mlx */
 typedef struct s_data
 {
 	void	*mlx_ptr;
@@ -67,42 +68,65 @@ typedef struct s_rect
 	int		color;
 }	t_rect;
 
-typedef struct s_mdbt
+/*structure for ease of us of coordonates on aa x-y axis*/
+typedef struct s_coord
 {
-	int		x;
-	int		y;
-	int		width;
-	int		height;
-	int		color;
+	double	x;
+	double	y;
+}	t_coord;
+
+typedef struct s_zoom
+{
+	double	kx;
+	double	ky;
+}	t_zoom;
+
+/*Structure for Mandelbrot fractal**
+** 1- Scaled coordinates of pixel */
+typedef struct s_fractal
+{
+	t_coord	px_coord;
+	t_coord	polar_coord;
+	t_coord	sq_coord;
+	t_zoom	zoom;
+	double	w;
 	size_t	max_iter;
-}	t_mdbt;
+}	t_fractal;
 
 /*############################################################################*/
 /*                          MAIN FUNCTIONS                                    */
 /*############################################################################*/
 
-int		encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue);
-void	img_pix_put(t_img *img, int x, int y, int color);
+int			encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue);
+void		img_pix_put(t_img *img, int x, int y, int color);
 
 /*############################################################################*/
 /*                  	MANAGE EVENTS FUNCTIONS                               */
 /*############################################################################*/
 
-int		ft_handle_keypress(int keysym, t_data *data);
-int		ft_handle_keyrelease(int keysym, t_data *data);
+int			ft_handle_keypress(int keysym, t_data *data);
+int			ft_handle_keyrelease(int keysym, t_data *data);
 
 /*############################################################################*/
 /*                          RENDER FUNCTIONS                                  */
 /*############################################################################*/
 
-void	ft_render_background(t_img *img, int color);
-int		ft_render_rect(t_img *img, t_rect rect);
-int		ft_render(t_data *data);
+void		ft_render_background(t_img *img, int color);
+int			ft_render_rect(t_img *img, t_rect rect);
+int			ft_render_fractal(t_img *img, t_fractal *fractal);
+int			ft_render(t_data *data);
+
+/*############################################################################*/
+/*                       COORDINATES FUNCTIONS                                */
+/*############################################################################*/
+
+t_coord		ft_initialize_coord(void);
+t_zoom		ft_initialize_zoom(void);
 
 /*############################################################################*/
 /*                  CALCULATE MANDELBROT FUNCTIONS                            */
 /*############################################################################*/
 
-int		ft_cal_mandelbrot(t_img *img);
+t_fractal	*ft_initialize_fractal(void);
 
 #endif

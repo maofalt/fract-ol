@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/18 17:30:42 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/19 18:04:44 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,13 @@ int	main(void)
 	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 			&data.img.line_len, &data.img.endian);
-	mlx_loop_hook(data.mlx_ptr, &ft_render, &data);
-	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, &data);
-	mlx_key_hook(data.win_ptr, &ft_handle_keyrelease, &data);
-	mlx_loop(data.mlx_ptr);
+	if ((mlx_loop_hook(data.mlx_ptr, &ft_render, &data)))
+	{
+		mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, &data);
+		mlx_key_hook(data.win_ptr, &ft_handle_keyrelease, &data);
+		mlx_loop(data.mlx_ptr);
+		/*free fractal structure*/
+	}
 	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
 	mlx_destroy_display(data.mlx_ptr);
 	free(data.mlx_ptr);
