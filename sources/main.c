@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/20 17:25:04 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/23 01:02:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,8 @@ int	encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue)
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
-	int		i;
 
-	i = img->bpp - 8;
 	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	while (i >= 0)
-	{
-		if (img->endian != 0)
-			*pixel++ = (color >> i) & 0xFF;
-		else
-			*pixel++ = (color >> (img->bpp - 8 - i));
-		i -= 8;
-	}
 	*(int *)pixel = color;
 }
 
@@ -65,7 +55,6 @@ size_t	ft_fractal_type(char **argv)
 int	main(int argc, char **argv)
 {
 	t_data		data;
-	t_fractal	*fractal;
 
 	if (argc == 1)
 	{
@@ -86,12 +75,12 @@ int	main(int argc, char **argv)
 		data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 		data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 				&data.img.line_len, &data.img.endian);
-		fractal = ft_initialize_fractal(argv);
-		if (!fractal)
+		data.fractal = ft_initialize_fractal(argv);
+		if (!data.fractal)
 			;
 		else if ((mlx_loop_hook(data.mlx_ptr, &ft_render, &data)))
 		{
-			ft_render_fractal(&data.img, fractal);
+			ft_render_fractal(&data.img, data.fractal);
 			mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, &data);
 			mlx_hook(data.win_ptr, ButtonPress, ButtonPressMask, &ft_handle_boutonpress, &data);
 			mlx_key_hook(data.win_ptr, &ft_handle_keyrelease, &data);

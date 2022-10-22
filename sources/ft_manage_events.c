@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/20 17:36:29 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/23 01:38:21 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,33 @@ int	ft_handle_keypress(int keysym, t_data *data)
 
 int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 {
-	(void)x;
-	(void)y;
+	double	delta_re = data->fractal->xtrm.re_max - data->fractal->xtrm.re_min;
+	double	delta_im = data->fractal->xtrm.im_max - data->fractal->xtrm.im_min;
+	double	delta_derr, delta_deri;
+	double xRatio = (double)x / WINDOW_WIDTH;
+	double yRatio = (double)y / WINDOW_HEIGHT;
+	double	scalefactor = 1 / 1.1;
+	printf("Detal Re %f Delta IM %f \n", delta_re, delta_im);
+	printf("x=%d y=%d\n", x,y );
 	if (buttonsym == 4)
 	{
-		printf("we can zoom!! \n");
-		data->win_ptr = NULL;
+		delta_derr = (scalefactor * delta_re) - delta_re;
+		delta_deri = (scalefactor * delta_im) - delta_im;
 	}	
 	else if (buttonsym == 5)
 	{
-		printf("we can zoom out!! \n");
-		data->win_ptr = NULL;
+		delta_derr = ((1 / scalefactor) * delta_re) - delta_re;
+		delta_deri = ((1 / scalefactor) * delta_im) - delta_im;
 	}
+	data->fractal->xtrm.re_min = data->fractal->xtrm.re_min - (delta_derr * xRatio);
+	data->fractal->xtrm.re_max = data->fractal->xtrm.re_max + (delta_derr * (1 - xRatio));
+	data->fractal->xtrm.im_max = data->fractal->xtrm.im_max + (delta_deri * yRatio);
+	data->fractal->xtrm.im_min = data->fractal->xtrm.im_min - (delta_deri * (1 - yRatio));
+	data->fractal->zoom.kx = (data->fractal->xtrm.re_max - data->fractal->xtrm.re_min) / WINDOW_WIDTH;
+	data->fractal->zoom.ky = (data->fractal->xtrm.im_max - data->fractal->xtrm.im_min) / WINDOW_HEIGHT;
+	data->fractal->offset.x = data->fractal->xtrm.re_min;
+	data->fractal->offset.y = data->fractal->xtrm.im_max;
+	ft_render_fractal(&data->img, data->fractal);
 	return (0);
 }
 
