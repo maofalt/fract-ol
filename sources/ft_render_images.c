@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/19 18:02:58 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/20 14:22:21 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 int	ft_render(t_data *data)
 {
-	t_fractal	*fractal;
-
 	if (data->win_ptr == NULL)
 		return (1);
-	ft_render_background(&data->img, WHITE_PIXEL);
-	fractal = ft_initialize_fractal();
-	if (!fractal)
-		return (1);
-	ft_render_fractal(&data->img, fractal);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->img.mlx_img, 0, 0);
+	mlx_do_sync(data->mlx_ptr);
 	return (0);
 }
 
@@ -61,7 +55,6 @@ int	ft_render_rect(t_img *img, t_rect rect)
 
 int	ft_render_fractal(t_img *img, t_fractal *fractal)
 {
-	size_t			i;
 	size_t			px;
 	size_t			py;
 
@@ -71,30 +64,14 @@ int	ft_render_fractal(t_img *img, t_fractal *fractal)
 		py = 0;
 		while (py < WINDOW_HEIGHT)
 		{
-			/*Offset values to be calculated automatically so if Aspect ratio changes the image remains centered*/
-			fractal->px_coord.x = -2 + (px / fractal->zoom.kx);
-			fractal->px_coord.y = -1.25 + (py / fractal->zoom.ky);
-			fractal->w = 0;
-			fractal->polar_coord = ft_initialize_coord();
-			fractal->sq_coord = ft_initialize_coord();
-			i = 0;
-			while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
-				&& (i < fractal->max_iter))
-			{
-				fractal->polar_coord.y = ((fractal->polar_coord.x + fractal->polar_coord.x) * fractal->polar_coord.y) + fractal->px_coord.y;
-				fractal->polar_coord.x = fractal->sq_coord.x - fractal->sq_coord.y + fractal->px_coord.x;
-				fractal->sq_coord.x = fractal->polar_coord.x * fractal->polar_coord.x;
-				fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;
-				fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y) * (fractal->polar_coord.x + fractal->polar_coord.y);
-				i++;
-			}
-			if (i == fractal->max_iter)
-				img_pix_put(img, px, py, BLACK_PIXEL);
-			else
-				img_pix_put(img, px, py, WHITE_PIXEL);
+			if (fractal->fractal_type == 1)
+				ft_calculate_mandelbrot(img, fractal, px, py);
+			else if (fractal->fractal_type == 2)
+				ft_calculate_julia(img, fractal, px, py);
 			py++;
 		}
 		px++;
 	}
+	printf("Fractal calulated!\n");
 	return (0);
 }

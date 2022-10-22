@@ -4,6 +4,7 @@
         "ft_calculate_mandelbrot": "c",
         "libft.h": "c",
         "x.h": "c",
-        "ft_render_images": "c"
+        "ft_render_images": "c",
+        "fractol.h": "c"
     }
 }

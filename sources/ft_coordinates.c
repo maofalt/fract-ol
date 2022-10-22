@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/19 17:12:07 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/22 17:31:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,19 @@ t_coord	ft_initialize_coord(void)
 	return (coord);
 }
 
-t_zoom	ft_initialize_zoom(void)
+t_zoom	ft_initialize_zoom(size_t fractal_type)
 {
 	t_zoom	zoom;
 
-	zoom.kx = WINDOW_WIDTH / RE_MAX;
-	zoom.ky = WINDOW_HEIGHT / IM_MAX;
+	if (fractal_type == 1)
+	{
+		zoom.kx = WINDOW_WIDTH / 2.47;
+		zoom.ky = WINDOW_HEIGHT / 2.24;
+	}
+	else if (fractal_type == 2)
+	{
+		zoom.kx = WINDOW_WIDTH / 4;
+		zoom.ky = WINDOW_HEIGHT / 4;
+	}
 	return (zoom);
 }

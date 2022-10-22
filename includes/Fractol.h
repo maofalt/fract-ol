@@ -6,17 +6,17 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/19 17:18:10 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/22 17:24:02 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
-# define RE_MAX 2.5
-# define IM_MAX 2.25
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 1000
+# define RE_MAX 4
+# define IM_MAX 2.24
 # define MLX_ERROR 1
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
@@ -85,6 +85,7 @@ typedef struct s_zoom
 ** 1- Scaled coordinates of pixel */
 typedef struct s_fractal
 {
+	size_t	fractal_type;
 	t_coord	px_coord;
 	t_coord	polar_coord;
 	t_coord	sq_coord;
@@ -99,12 +100,15 @@ typedef struct s_fractal
 
 int			encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue);
 void		img_pix_put(t_img *img, int x, int y, int color);
+int			ft_valid_argument(int argc, char **argv);
+size_t		ft_fractal_type(char **argv);
 
 /*############################################################################*/
 /*                  	MANAGE EVENTS FUNCTIONS                               */
 /*############################################################################*/
 
 int			ft_handle_keypress(int keysym, t_data *data);
+int			ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data);
 int			ft_handle_keyrelease(int keysym, t_data *data);
 
 /*############################################################################*/
@@ -121,12 +125,14 @@ int			ft_render(t_data *data);
 /*############################################################################*/
 
 t_coord		ft_initialize_coord(void);
-t_zoom		ft_initialize_zoom(void);
+t_zoom		ft_initialize_zoom(size_t fractal_type);
 
 /*############################################################################*/
 /*                  CALCULATE MANDELBROT FUNCTIONS                            */
 /*############################################################################*/
 
-t_fractal	*ft_initialize_fractal(void);
+t_fractal	*ft_initialize_fractal(char **argv);
+void		ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py);
+void		ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py);
 
 #endif

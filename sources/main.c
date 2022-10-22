@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/19 18:04:44 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/20 17:25:04 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,73 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-int	main(void)
+int	ft_valid_argument(int argc, char **argv)
 {
-	t_data	data;
+	size_t	w_len;
 
-	data.mlx_ptr = mlx_init();
-	if (data.mlx_ptr == NULL)
-		return (MLX_ERROR);
-	data.win_ptr = mlx_new_window(data.mlx_ptr,
-			WINDOW_WIDTH, WINDOW_HEIGHT, "Mandelbrot");
-	if (data.win_ptr == NULL)
+	if ((argc > 1) && (argc < 5))
 	{
-		free(data.win_ptr);
-		return (MLX_ERROR);
+		w_len = ft_strlen(argv[1]);
+		if (!(ft_strncmp(argv[1], "mandelbrot", w_len)))
+			return (1);
+		else if (!(ft_strncmp(argv[1], "julia", w_len)))
+			return (1);
 	}
-	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
-			&data.img.line_len, &data.img.endian);
-	if ((mlx_loop_hook(data.mlx_ptr, &ft_render, &data)))
+	return (0);
+}
+
+size_t	ft_fractal_type(char **argv)
+{
+	size_t	w_len;
+
+	w_len = ft_strlen(argv[1]);
+	if (!ft_strncmp(argv[1], "mandelbrot", w_len))
+		return (1);
+	else if (!ft_strncmp(argv[1], "julia", w_len))
+		return (2);
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data		data;
+	t_fractal	*fractal;
+
+	if (argc == 1)
 	{
-		mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, &data);
-		mlx_key_hook(data.win_ptr, &ft_handle_keyrelease, &data);
-		mlx_loop(data.mlx_ptr);
-		/*free fractal structure*/
+		ft_printf("Input a fractal as argument");
 	}
-	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
-	mlx_destroy_display(data.mlx_ptr);
-	free(data.mlx_ptr);
+	else if (ft_valid_argument(argc, argv))
+	{
+		data.mlx_ptr = mlx_init();
+		if (data.mlx_ptr == NULL)
+			return (MLX_ERROR);
+		data.win_ptr = mlx_new_window(data.mlx_ptr,
+				WINDOW_WIDTH, WINDOW_HEIGHT, "Fract-ol");
+		if (data.win_ptr == NULL)
+		{
+			free(data.win_ptr);
+			return (MLX_ERROR);
+		}
+		data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+		data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
+				&data.img.line_len, &data.img.endian);
+		fractal = ft_initialize_fractal(argv);
+		if (!fractal)
+			;
+		else if ((mlx_loop_hook(data.mlx_ptr, &ft_render, &data)))
+		{
+			ft_render_fractal(&data.img, fractal);
+			mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, &data);
+			mlx_hook(data.win_ptr, ButtonPress, ButtonPressMask, &ft_handle_boutonpress, &data);
+			mlx_key_hook(data.win_ptr, &ft_handle_keyrelease, &data);
+			mlx_loop(data.mlx_ptr);
+			/*free fractal structure*/
+		}
+		mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
+		mlx_destroy_display(data.mlx_ptr);
+		free(data.mlx_ptr);
+		return (0);
+	}
+	return (1);
 }

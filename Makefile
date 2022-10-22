@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/19 17:53:10 by motero           ###   ########.fr        #
+#    Updated: 2022/10/19 18:06:44 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -212,7 +212,7 @@ $(OBJS_PATH_PROFILER)%.o: $(SRCS_DIR_PS)%.c $(HDRS) $(LIBFT)
 
 $(PROFILE) : $(OBJS_PATH_PROFILER) $(OBJS_PROFILER) $(LIBFT) $(HDRS)
 		@echo " \n[$(bold)$(YELLOW) PROFILER COMPILATION $(NONE)]"
-		$(CC) $(CFLAGS) $(PROFILER_FLAG) $(OBJS_PROFILER) $(LIB_BINARY) -o $@
+		$(CC) $(CFLAGS) $(PROFILER_FLAG) $(OBJS_PROFILER) $(LIB_BINARY) $(MINILIBX_BINARY) -o $@
 		@echo "\t[ $(GREEN)✔$(NONE) ] fractol_prof"
 
 #=============================================================================#
