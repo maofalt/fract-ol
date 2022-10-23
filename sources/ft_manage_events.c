@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 01:38:21 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/23 04:39:46 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 	double xRatio = (double)x / WINDOW_WIDTH;
 	double yRatio = (double)y / WINDOW_HEIGHT;
 	double	scalefactor = 1 / 1.1;
-	printf("Detal Re %f Delta IM %f \n", delta_re, delta_im);
-	printf("x=%d y=%d\n", x,y );
+
 	if (buttonsym == 4)
 	{
 		delta_derr = (scalefactor * delta_re) - delta_re;

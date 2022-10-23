@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/19 18:06:44 by motero           ###   ########.fr        #
+#    Updated: 2022/10/23 02:43:20 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,18 +114,7 @@ VALGND_FLAG = -g3
 
 CALLGND = fractol_callgrind
 
-OBJS_PATH_CALLGND = objs_callgrind/
-OBJS_NAME_CALLGND = $(SRCS_NAME_PS:.c=.o)
-OBJS_CALLGND = $(addprefix $(OBJS_PATH_CALLGND), $(OBJS_NAME_CALLGND))
-
-CALLGND_FLAG = -g
-
-#=============================================================================#
-#                                 GDB                                         #
-#=============================================================================#
-
-BDG = fractol_gdb
-
+OBJS_PATH_CALLGND = objyRatio
 OBJS_PATH_GDB = objs_gdb/
 OBJS_NAME_GDB = $(SRCS_NAME_PS:.c=.o)
 OBJS_GDB = $(addprefix $(OBJS_PATH_GDB), $(OBJS_NAME_GDB))

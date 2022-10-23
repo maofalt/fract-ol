@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 01:02:20 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/23 05:30:13 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ typedef struct s_fractal
 	t_xtrm		xtrm;
 }	t_fractal;
 
-
-
 /* Struucture transporting  pointer from mlx */
 typedef struct s_data
 {
@@ -149,12 +147,13 @@ t_coord		ft_initialize_coord(void);
 t_zoom		ft_initialize_zoom(size_t fractal_type);
 t_coord		ft_initialize_offset(size_t fractal_type);
 t_xtrm		ft_initialize_extremes(size_t fractal_type);
+t_coord		ft_initialize_julia(t_fractal fractal, char **argv, int argc);
 
 /*############################################################################*/
 /*                  CALCULATE MANDELBROT FUNCTIONS                            */
 /*############################################################################*/
 
-t_fractal	*ft_initialize_fractal(char **argv);
+t_fractal	*ft_initialize_fractal(char **argv, int argc);
 void		ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py);
 void		ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py);
 

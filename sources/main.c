@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 01:02:40 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/23 04:51:29 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,16 @@ int	ft_valid_argument(int argc, char **argv)
 	if ((argc > 1) && (argc < 5))
 	{
 		w_len = ft_strlen(argv[1]);
-		if (!(ft_strncmp(argv[1], "mandelbrot", w_len)))
+		if (!(ft_strncmp(argv[1], "mandelbrot", w_len)) && argc == 2)
 			return (1);
 		else if (!(ft_strncmp(argv[1], "julia", w_len)))
-			return (1);
+		{
+			/* Verify that argv[2 - 5] contain only numbers + - and .*/
+			if (argc == 2 || argc < 3)
+				return (1);
+			else
+				return (0);
+		}		
 	}
 	return (0);
 }
@@ -75,7 +81,7 @@ int	main(int argc, char **argv)
 		data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 		data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 				&data.img.line_len, &data.img.endian);
-		data.fractal = ft_initialize_fractal(argv);
+		data.fractal = ft_initialize_fractal(argv, argc);
 		if (!data.fractal)
 			;
 		else if ((mlx_loop_hook(data.mlx_ptr, &ft_render, &data)))
