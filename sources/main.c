@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/24 15:47:48 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:36:43 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	main(int argc, char **argv)
 		else if ((mlx_loop_hook(data.mlx_ptr, &ft_render, &data)))
 		{
 			ft_render_fractal(&data.img, data.fractal);
+			mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, &ft_destroy_window, &data);
 			mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, &data);
 			mlx_hook(data.win_ptr, ButtonPress, ButtonPressMask, &ft_handle_boutonpress, &data);
 			mlx_key_hook(data.win_ptr, &ft_handle_keyrelease, &data);

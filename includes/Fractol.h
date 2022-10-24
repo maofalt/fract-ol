@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/24 13:59:03 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:38:08 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ size_t		ft_fractal_type(char **argv);
 int			ft_handle_keypress(int keysym, t_data *data);
 int			ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data);
 int			ft_handle_keyrelease(int keysym, t_data *data);
+int			ft_destroy_window(t_data *data);
 
 /*############################################################################*/
 /*                          RENDER FUNCTIONS                                  */

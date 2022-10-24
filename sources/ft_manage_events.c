@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/24 15:28:47 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:37:43 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ int	ft_handle_keypress(int keysym, t_data *data)
 	}
 	return (0);
 }
+
+int	ft_destroy_window(t_data *data)
+{
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	data->win_ptr = NULL;
+	return (0);
+}
+
+
 
 int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 {
