@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/24 14:25:08 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:45:23 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,22 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 	return (fractal);
 }
 
+uint32_t	ft_color_fractal(t_fractal *fractal, size_t i)
+{
+	uint32_t	color;
+	float		temp;
+	int			shift;
+
+	temp = ((double)i / fractal->max_iter) * 5;
+	if (temp > 1.0f)
+		temp = 1.0f;
+	else if (temp < 0.0f)
+		temp = 0.0f;
+	shift = temp * 255;
+	color = (shift << 16) | (shift << 8) | shift;
+	return (color);
+}
+
 void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	size_t	i;
@@ -76,15 +92,9 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 		i++;
 	}
 	//img_pix_put(img, px, py, i << 2);
-	float temp = ((double)i / fractal->max_iter) * 5;
-	if (temp > 1.0f)
-		temp = 1.0f;
-	else if (temp < 0.0f)
-		temp = 0.0f;
-	int oue = temp * 255;
-	uint32_t col = (oue << 16) | (oue << 8) | oue;
-	img_pix_put(img, px, py, col);
+	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
 }
+
 
 
 // 	/*Offset values to be calculated automatically so if Aspect ratio changes the image remains centered*/
@@ -123,12 +133,5 @@ void	ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
 		fractal->sq_coord.y = fractal->px_coord.y * fractal->px_coord.y;;
 		i++;
 	}
-	float temp = ((double)i / fractal->max_iter) * 5;
-	if (temp > 1.0f)
-		temp = 1.0f;
-	else if (temp < 0.0f)
-		temp = 0.0f;
-	int oue = temp * 255;
-	uint32_t col = (oue << 16) | (oue << 8) | oue;
-	img_pix_put(img, px, py, col);
+	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
 }
