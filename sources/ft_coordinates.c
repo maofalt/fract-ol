@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 04:55:39 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 14:30:17 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_coord	ft_initialize_offset(size_t fractal_type)
 {
 	t_coord	offset;
 
+	offset = ft_initialize_coord();
 	if (fractal_type == 1)
 	{
 		offset.x = -2;
@@ -56,6 +57,13 @@ t_xtrm	ft_initialize_extremes(size_t fractal_type)
 		xtrm.im_max = 2;
 		xtrm.im_min = -2;
 	}
+	else
+	{
+		xtrm.re_max = 2;
+		xtrm.re_min = -2;
+		xtrm.im_max = 2;
+		xtrm.im_min = -2;
+	}
 	return (xtrm);
 }
 
@@ -73,24 +81,33 @@ t_zoom	ft_initialize_zoom(size_t fractal_type)
 		zoom.kx = 4.0 / WINDOW_WIDTH;
 		zoom.ky = 4.0 / WINDOW_HEIGHT;
 	}
+	else
+	{
+		zoom.kx = 0;
+		zoom.ky = 0;
+	}
 	return (zoom);
 }
 
-t_coord	ft_initialize_julia(t_fractal fractal, char **argv, int argc)
+t_coord	ft_initialize_complexe(t_fractal fractal, char **argv, int argc)
 {
-	t_coord	polar;
+	t_coord	cmplx;
 
 	if (fractal.fractal_type == 1)
-		polar = ft_initialize_coord();
+		cmplx = ft_initialize_coord();
 	else if (fractal.fractal_type == 2 && argc == 2)
 	{
-		polar.x = 0.5;
-		polar.y = -0.5;
+		cmplx.x = 0.5;
+		cmplx.y = -0.5;
 	}
-	else if (fractal.fractal_type == 2 && argc < 2)
+	else if (fractal.fractal_type == 2 && argc < 5)
 	{
-		polar.x = ft_atof(argv[2]);
-		polar.y = ft_atof(argv[3]);
+		cmplx.x = ft_atof(argv[2]);
+		cmplx.y = ft_atof(argv[3]);
+		printf("During %f %f\n", cmplx.x, cmplx.y);
 	}
-	return (polar);
+	else
+		cmplx = ft_initialize_coord();
+	printf("end %f %f\n", cmplx.x, cmplx.y);
+	return (cmplx);
 }

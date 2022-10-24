@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 04:39:46 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 15:28:47 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 {
 	double	delta_re = data->fractal->xtrm.re_max - data->fractal->xtrm.re_min;
 	double	delta_im = data->fractal->xtrm.im_max - data->fractal->xtrm.im_min;
-	double	delta_derr, delta_deri;
+	double	delta_derr = 0, delta_deri = 0;
 	double xRatio = (double)x / WINDOW_WIDTH;
 	double yRatio = (double)y / WINDOW_HEIGHT;
 	double	scalefactor = 1 / 1.1;

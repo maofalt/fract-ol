@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 05:30:13 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 13:59:03 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ typedef struct s_xtrm
 typedef struct s_fractal
 {
 	size_t		fractal_type;
-	t_coord		center_zoom;
 	t_coord		px_coord;
 	t_coord		polar_coord;
 	t_coord		polar_der;
@@ -99,6 +98,7 @@ typedef struct s_fractal
 	double		w;
 	size_t		max_iter;
 	t_xtrm		xtrm;
+	t_coord		z_const;
 }	t_fractal;
 
 /* Struucture transporting  pointer from mlx */
@@ -147,7 +147,7 @@ t_coord		ft_initialize_coord(void);
 t_zoom		ft_initialize_zoom(size_t fractal_type);
 t_coord		ft_initialize_offset(size_t fractal_type);
 t_xtrm		ft_initialize_extremes(size_t fractal_type);
-t_coord		ft_initialize_julia(t_fractal fractal, char **argv, int argc);
+t_coord		ft_initialize_complexe(t_fractal fractal, char **argv, int argc);
 
 /*############################################################################*/
 /*                  CALCULATE MANDELBROT FUNCTIONS                            */

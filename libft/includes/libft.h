@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 16:01:07 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 04:55:59 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 13:12:59 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdint.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <math.h>
 
 int				ft_atoi(const char *nptr);
 void			*ft_calloc(size_t nmemb, size_t size);

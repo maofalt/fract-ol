@@ -6,46 +6,34 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:52:08 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 05:29:50 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 15:25:36 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isspace(int c)
-{
-	return (c == '\f' || c == '\n' || c == '\r' || c == '\t' || c == '\v'
-		|| c == ' ');
-}
-
-static int	ft_max_min(int sign)
-{
-	if (sign == 1)
-		return (INT_MAX);
-	else
-		return (INT_MIN);
-}
-
 double	ft_atof(const char *nptr)
 {
-	double a;
+	double	a;
 	char	**str;
-	int c ;
-	int	dec;
+	double	dec;
+	int		sign;
 
+	sign = 1;
+	if (nptr[0] == '-')
+		sign = -1;
+	dec = 0;
 	a = 0.0;
-	c = *nptr;
-	while(c)
-	{
-		if (!ft_isdigit (c) || c != '.' || c != '-' || c != '+')
-			return (0);
-		c = *nptr++;
-	}
 	str = ft_split(nptr, '.');
-	a += ft_atoi(str[0]);
-	dec = ft_strlen(str[1]);
-	a += ft_atoi(str[1]) * 10^-dec;
-	return (a);
+	a += (double)ft_atoi(str[0]);
+	if (ft_strlen(str[1]))
+		dec = (double)ft_atoi(str[1]) * (double)pow(10, -1 *(double)ft_strlen(str[1]));
+	a += dec;
+	/*free str splited*/
+	if ((double)sign * a > 0)
+		return (a);
+	else
+		return (-a);
 }
 /*#include <stdio.h>
 #include <stdlib.h>

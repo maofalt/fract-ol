@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 04:51:29 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 15:47:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
+int	ft_valid_d(char *str)
+{
+	int	c;
+
+	c = *str;
+	while (*str++)
+	{
+		if (!(ft_isdigit(c) || c == '-' || c == '.'))
+			return (0);
+		c = *str;
+	}
+	return (1);
+}
+
 int	ft_valid_argument(int argc, char **argv)
 {
 	size_t	w_len;
@@ -36,8 +50,9 @@ int	ft_valid_argument(int argc, char **argv)
 			return (1);
 		else if (!(ft_strncmp(argv[1], "julia", w_len)))
 		{
-			/* Verify that argv[2 - 5] contain only numbers + - and .*/
-			if (argc == 2 || argc < 3)
+			if (argc == 2)
+				return (1);
+			else if (argc == 4 && ft_valid_d(argv[2]) && ft_valid_d(argv[3]))
 				return (1);
 			else
 				return (0);

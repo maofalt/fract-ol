@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/20 15:04:37 by motero           ###   ########.fr        #
+#    Updated: 2022/10/24 13:12:41 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ HDR_INC_PRINT = $(addprefix -I./, $(HDR_DIR_PRINT))
 #=============================================================================#
 
 SRCS_PATH = sources/
-SRCS_NAME = ft_isalpha.c \
+SRCS_NAME = ft_atof.c \
+ft_isalpha.c \
 ft_isdigit.c \
 ft_isalnum.c \
 ft_isascii.c \

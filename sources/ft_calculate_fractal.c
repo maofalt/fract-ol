@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/23 05:30:52 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 14:25:08 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 	if (!fractal)
 		return (NULL);
 	fractal->fractal_type = ft_fractal_type(argv);
-	fractal->center_zoom = ft_initialize_coord();
 	fractal->px_coord = ft_initialize_coord();
-	fractal->polar_coord = ft_initialize_julia(*fractal, argv, argc);
+	fractal->polar_coord = ft_initialize_complexe(*fractal, argv, argc);
+	fractal->z_const = ft_initialize_complexe(*fractal, argv, argc);
 	fractal->sq_coord = ft_initialize_coord();
 	fractal->xtrm = ft_initialize_extremes(fractal->fractal_type);
 	fractal->zoom = ft_initialize_zoom(fractal->fractal_type);
@@ -62,7 +62,7 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
 	fractal->w = 0;
-	fractal->polar_coord = ft_initialize_julia(*fractal);
+	fractal->polar_coord = fractal->z_const;
 	fractal->sq_coord = ft_initialize_coord();
 	i = 0;
 	while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
@@ -110,7 +110,7 @@ void	ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
 	fractal->w = 0;
-	fractal->polar_coord = ft_initialize_julia(*fractal);
+	fractal->polar_coord = fractal->z_const;
 	fractal->sq_coord = ft_initialize_coord();
 	i = 0;
 	while (((fractal->sq_coord.x + fractal->sq_coord.y) < 4)
