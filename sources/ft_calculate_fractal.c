@@ -6,34 +6,11 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/24 16:45:23 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:55:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Fractol.h>
-
-/* for each pixel (Px, Py) on the screen do
-    x0 := scaled x coordinate of pixel (scaled to lie in the Mandelbrot X scale (-2.00, 0.47))
-    y0 := scaled y coordinate of pixel (scaled to lie in the Mandelbrot Y scale (-1.12, 1.12))
-    x := 0.0
-    y := 0.0
-	x2:= 0
-	y2:= 0
-	w:= 0
-    iteration := 0
-    max_iteration := 1000
-    while (x2 + y2 ≤ 4 and iteration < max_iteration) do
-		x:= x2 - y2 + x0
-		y:= w - x2 - y2 + y0
-		x2:= x × x
-		y2:= y × y
-		w:= (x + y) × (x + y)
-		iteration:= iteration + 1
- 
-    color := palette[iteration]
-    plot(Px, Py, color)*/
-
-/* Create a vector a + ib with a Re and Im component it zill save up to 1 variable here*/
 
 t_fractal	*ft_initialize_fractal(char **argv, int argc)
 {
@@ -71,17 +48,45 @@ uint32_t	ft_color_fractal(t_fractal *fractal, size_t i)
 	return (color);
 }
 
+// void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
+// {
+// 	size_t	i;
+
+// 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
+// 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
+// 	fractal->w = 0;
+// 	fractal->polar_coord = fractal->z_const;
+// 	fractal->sq_coord = ft_initialize_coord();
+// 	i = 0;
+// 	while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
+// 		&& (i < fractal->max_iter))
+// 	{
+// 		fractal->polar_coord.y = ((2.0 * fractal->polar_coord.x) * fractal->polar_coord.y) + fractal->px_coord.y;
+// 		fractal->polar_coord.x = fractal->sq_coord.x - fractal->sq_coord.y + fractal->px_coord.x;
+// 		fractal->sq_coord.x = fractal->polar_coord.x * fractal->polar_coord.x;
+// 		fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;
+// 		fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y) * (fractal->polar_coord.x + fractal->polar_coord.y);
+// 		i++;
+// 	}
+// 	//img_pix_put(img, px, py, i << 2);
+// 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
+// }
+
 void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	size_t	i;
-	/*Offset values to be calculated automatically so if Aspect ratio changes the image remains centered*/
+	double	log_zn;
+	double	nu;
+	int 	color, color1, color2;
+
 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
 	fractal->w = 0;
 	fractal->polar_coord = fractal->z_const;
 	fractal->sq_coord = ft_initialize_coord();
 	i = 0;
-	while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
+	nu = 0;
+	while ((fractal->sq_coord.x + fractal->sq_coord.y <= (1 << 16))
 		&& (i < fractal->max_iter))
 	{
 		fractal->polar_coord.y = ((2.0 * fractal->polar_coord.x) * fractal->polar_coord.y) + fractal->px_coord.y;
@@ -91,27 +96,20 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 		fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y) * (fractal->polar_coord.x + fractal->polar_coord.y);
 		i++;
 	}
-	//img_pix_put(img, px, py, i << 2);
+	if (i < fractal->max_iter)
+	{
+		log_zn = log(fractal->sq_coord.x + fractal->sq_coord.y) / 2;
+		nu = log(log_zn / log(2)) / log(2);
+		i = i + 1 - nu;
+	}
+	/*Deine what palette is*/
+	color1 = palette[floor(iteration)];
+	color2 = palette[floor(iteration) + 1];
+	/*Define our lineare interpolation as seen in the exercce*/
+	color = linear_interpolate(color1, color2, iteration % 1);
 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
 }
 
-
-
-// 	/*Offset values to be calculated automatically so if Aspect ratio changes the image remains centered*/
-// 	fractal->px_coord.x = fractal->offset.x + (px / fractal->zoom.kx);
-// 	fractal->px_coord.y = fractal->offset.y + (py / fractal->zoom.ky);
-// 	fractal->w = 0;
-// 	fractal->polar_coord = ft_initialize_coord();
-// 	fractal->polar_der = ft_initialize_coord();
-// 	fractal->sq_coord = ft_initialize_coord();
-// 	i = 0;
-// 	while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
-// 		&& (i < fractal->max_iter))
-// 	{
-// 		i++;
-// 	}
-// 	img_pix_put(img, px, py, i << 2);
-// }
 
 void	ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
