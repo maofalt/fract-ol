@@ -6,13 +6,13 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/25 17:32:18 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:58:46 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Fractol.h>
 
-int	encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue)
+uint32_t	encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue)
 {
 	return (hue << 24 | red << 16 | green << 8 | blue);
 }
