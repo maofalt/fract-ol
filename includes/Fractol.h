@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/24 16:38:08 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:29:17 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_fractal
 	size_t		max_iter;
 	t_xtrm		xtrm;
 	t_coord		z_const;
+	size_t		update;
 }	t_fractal;
 
 /* Struucture transporting  pointer from mlx */

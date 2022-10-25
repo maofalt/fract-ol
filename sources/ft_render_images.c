@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/22 23:00:14 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:29:46 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ int	ft_render(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-		data->img.mlx_img, 0, 0);
-	//mlx_do_sync(data->mlx_ptr);
+	if (data->fractal->update)
+	{
+		ft_render_fractal(&data->img, data->fractal);
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+			data->img.mlx_img, 0, 0);
+		data->fractal->update = 0;
+	}
 	return (0);
 }
 

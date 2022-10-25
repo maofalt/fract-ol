@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/24 16:37:43 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:33:06 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 	data->fractal->zoom.ky = (data->fractal->xtrm.im_max - data->fractal->xtrm.im_min) / WINDOW_HEIGHT;
 	data->fractal->offset.x = data->fractal->xtrm.re_min;
 	data->fractal->offset.y = data->fractal->xtrm.im_max;
-	ft_render_fractal(&data->img, data->fractal);
+	data->fractal->max_iter += 5;
+	data->fractal->update = 1;
 	return (0);
 }
 
