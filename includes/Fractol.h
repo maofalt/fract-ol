@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/25 23:28:56 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/26 01:06:07 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define BLUE_PIXEL 0xFF
 # define WHITE_PIXEL 0xFFFFFF
 # define BLACK_PIXEL 0x0
+# define UP_KEY 65362
+# define DOWN_KEY 65364
+# define LEFT_KEY 65361
+# define RIGHT_KEY 65363
 
 # include <limits.h>
 # include <math.h>

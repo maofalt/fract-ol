@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/25 17:33:06 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/26 01:29:57 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,39 @@
 
 int	ft_handle_keypress(int keysym, t_data *data)
 {
+	double deplacement_factor = 0.05;
+
 	if (keysym == XK_Escape)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
+	}
+	if (keysym == UP_KEY || keysym == LEFT_KEY || keysym == DOWN_KEY || keysym == RIGHT_KEY)
+	{
+		if (keysym == UP_KEY)
+		{
+			data->fractal->xtrm.im_max += data->fractal->xtrm.im_max * deplacement_factor;
+			data->fractal->xtrm.im_min -= data->fractal->xtrm.im_min * deplacement_factor;
+		}
+		else if (keysym == DOWN_KEY)
+		{
+			data->fractal->xtrm.im_max -= data->fractal->xtrm.im_max * deplacement_factor;
+			data->fractal->xtrm.im_min += data->fractal->xtrm.im_min * deplacement_factor;
+		}
+		else if (keysym == LEFT_KEY)
+		{
+			data->fractal->xtrm.re_max -= data->fractal->xtrm.re_max * deplacement_factor;
+			data->fractal->xtrm.re_min += data->fractal->xtrm.re_min * deplacement_factor;
+		}
+		else if (keysym == RIGHT_KEY)
+		{
+			data->fractal->xtrm.re_max += data->fractal->xtrm.re_max * deplacement_factor;
+			data->fractal->xtrm.re_min -= data->fractal->xtrm.re_min * deplacement_factor;
+		}
+		data->fractal->offset.x = data->fractal->xtrm.re_min;
+		data->fractal->offset.y = data->fractal->xtrm.im_max;
+		ft_render_fractal(&data->img, data->fractal);
+		data->fractal->update = 1;
 	}
 	return (0);
 }
@@ -28,8 +57,6 @@ int	ft_destroy_window(t_data *data)
 	data->win_ptr = NULL;
 	return (0);
 }
-
-
 
 int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 {
