@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/26 14:27:46 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/26 21:28:15 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_handle_keypress(int keysym, t_data *data)
 {
-	double deplacement_factor = 0.05;
+	double delta = data->fractal->xtrm.im_max - data->fractal->xtrm.im_min;
 
 	if (keysym == XK_Escape)
 	{
@@ -25,29 +25,34 @@ int	ft_handle_keypress(int keysym, t_data *data)
 	{
 		if (keysym == DOWN_KEY)
 		{
-			data->fractal->xtrm.im_max += data->fractal->xtrm.im_max * deplacement_factor;
-			data->fractal->xtrm.im_min -= data->fractal->xtrm.im_min * deplacement_factor;
+			data->fractal->xtrm.im_max += delta * 0.05;
+			data->fractal->xtrm.im_min += delta * 0.05;
 		}
 		else if (keysym == UP_KEY)
 		{
-			data->fractal->xtrm.im_max -= data->fractal->xtrm.im_max * deplacement_factor;
-			data->fractal->xtrm.im_min += data->fractal->xtrm.im_min * deplacement_factor;
+			data->fractal->xtrm.im_max -= delta * 0.05;
+			data->fractal->xtrm.im_min -= delta * 0.05;
 		}
 		else if (keysym == RIGHT_KEY)
 		{
-			data->fractal->xtrm.re_max -= data->fractal->xtrm.re_max * deplacement_factor;
-			data->fractal->xtrm.re_min += data->fractal->xtrm.re_min * deplacement_factor;
+			data->fractal->xtrm.re_max -= delta * 0.05;
+			data->fractal->xtrm.re_min -= delta * 0.05;
 		}
 		else if (keysym == LEFT_KEY)
 		{
-			data->fractal->xtrm.re_max += data->fractal->xtrm.re_max * deplacement_factor;
-			data->fractal->xtrm.re_min -= data->fractal->xtrm.re_min * deplacement_factor;
+			data->fractal->xtrm.re_max += delta * 0.05;
+			data->fractal->xtrm.re_min += delta * 0.05;
 		}
-		printf("New Offset");
+		// printf("New Offset");
+		// data->fractal->offset.x = data->fractal->xtrm.re_min;
+		// data->fractal->offset.y = data->fractal->xtrm.im_max;
+		// printf("New Offset x: %f y:%f\n",data->fractal->offset.x, data->fractal->offset.y);
+		//ft_render_fractal(&data->img, data->fractal);
+		printf("zoom X %f zoom Y %f\n",data->fractal->zoom.kx, data->fractal->zoom.kx);
+		data->fractal->zoom.kx = (data->fractal->xtrm.re_max - data->fractal->xtrm.re_min) / WINDOW_WIDTH;
+		data->fractal->zoom.ky = (data->fractal->xtrm.im_max - data->fractal->xtrm.im_min) / WINDOW_HEIGHT;
 		data->fractal->offset.x = data->fractal->xtrm.re_min;
 		data->fractal->offset.y = data->fractal->xtrm.im_max;
-		printf("New Offset x: %f y:%f\n",data->fractal->offset.x, data->fractal->offset.y);
-		ft_render_fractal(&data->img, data->fractal);
 		data->fractal->update = 1;
 	}
 	return (0);
@@ -73,11 +78,13 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 	{
 		delta_derr = (scalefactor * delta_re) - delta_re;
 		delta_deri = (scalefactor * delta_im) - delta_im;
+		data->fractal->max_iter += 5;
 	}	
 	else if (buttonsym == 5)
 	{
 		delta_derr = ((1 / scalefactor) * delta_re) - delta_re;
 		delta_deri = ((1 / scalefactor) * delta_im) - delta_im;
+		data->fractal->max_iter -= 5;
 	}
 	data->fractal->xtrm.re_min = data->fractal->xtrm.re_min - (delta_derr * xRatio);
 	data->fractal->xtrm.re_max = data->fractal->xtrm.re_max + (delta_derr * (1 - xRatio));
@@ -87,7 +94,7 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 	data->fractal->zoom.ky = (data->fractal->xtrm.im_max - data->fractal->xtrm.im_min) / WINDOW_HEIGHT;
 	data->fractal->offset.x = data->fractal->xtrm.re_min;
 	data->fractal->offset.y = data->fractal->xtrm.im_max;
-	data->fractal->max_iter += 5;
+	printf("zoom X %f zoom Y %f\n",data->fractal->zoom.kx, data->fractal->zoom.kx);
 	data->fractal->update = 1;
 	return (0);
 }

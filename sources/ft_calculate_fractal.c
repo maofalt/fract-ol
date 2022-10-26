@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/26 15:39:56 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/26 21:28:56 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 	fractal->zoom = ft_initialize_zoom(fractal->fractal_type);
 	fractal->offset = ft_initialize_offset(fractal->fractal_type);
 	fractal->w = 0;
-	fractal->max_iter = 64;
+	fractal->max_iter = 1000;
 	fractal->update = 1;
 	return (fractal);
 }
@@ -93,7 +93,7 @@ uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 		if (color_method == 2)
 			color = ft_bernstein_interpolation(temp);
 		if (color_method == 3)
-			color = ft_linear_interpolation(palette[0], palette[1], temp);
+			color = ft_linear_interpolation(palette[0], palette[8], temp);
 	}
 	else if (color_method == 4 || color_method == 5)
 	{
@@ -140,11 +140,71 @@ uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 // 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
 // }
 
+int	ft_check_shapes(t_img *img, t_fractal *fractal, size_t px, size_t py)
+{
+	double	q;
+
+	q = pow(fractal->px_coord.x - 0.25, 2) + (fractal->px_coord.y * fractal->px_coord.y);
+	if (0.25 * fractal->px_coord.y * fractal->px_coord.y >= (q * (q + (fractal->px_coord.x - 0.25))) ||
+		(pow(fractal->px_coord.x + 1, 2) + (fractal->px_coord.y * fractal->px_coord.y) <= (double)1/16))
+	{
+		img_pix_put(img, px, py, ft_color_fractal(fractal, fractal->max_iter));
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_check_period(t_fractal *fractal, double *period, size_t *i)
+{
+	if (fractal->polar_coord.x == fractal->old.x && fractal->polar_coord.y == fractal->old.y)
+	{
+		*i = fractal->max_iter;
+		return (1);
+	}
+	*period = *period + 1;
+	if (*period > 4)
+	{
+		*period = 0;
+		fractal->old.x = fractal->polar_coord.x;
+		fractal->old.y = fractal->polar_coord.y;
+	}
+	return (0);
+}
+
+// void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
+// {
+// 	size_t	i;
+// 	double	period;
+
+// 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
+// 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
+// 	fractal->w = 0;
+// 	fractal->polar_coord = fractal->z_const;
+// 	fractal->sq_coord = ft_initialize_coord();
+// 	fractal->old = ft_initialize_coord();
+// 	period = 0;
+// 	i = 0;
+// 	if (ft_check_shapes(img, fractal, px, py))
+// 		return ;
+// 	while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
+// 		&& (i < fractal->max_iter))
+// 	{
+// 		fractal->polar_coord.y = ((2.0 * fractal->polar_coord.x) * fractal->polar_coord.y) + fractal->px_coord.y;
+// 		fractal->polar_coord.x = fractal->sq_coord.x - fractal->sq_coord.y + fractal->px_coord.x;
+// 		fractal->sq_coord.x = fractal->polar_coord.x * fractal->polar_coord.x;
+// 		fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;
+// 		fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y) * (fractal->polar_coord.x + fractal->polar_coord.y);
+// 		i++;
+// 		if (ft_check_period(fractal, &period, &i))
+// 			break ;
+// 	}
+// 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
+// }
+
 void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	size_t	i;
-	double	q;
-	double period;
+	double	period;
 
 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
@@ -154,13 +214,8 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 	fractal->old = ft_initialize_coord();
 	period = 0;
 	i = 0;
-	q = pow(fractal->px_coord.x - 0.25, 2) + (fractal->px_coord.y * fractal->px_coord.y);
-	if (0.25 * fractal->px_coord.y * fractal->px_coord.y >= (q * (q + (fractal->px_coord.x - 0.25))) ||
-		(pow(fractal->px_coord.x + 1, 2) + (fractal->px_coord.y * fractal->px_coord.y) <= (double)1/16))
-	{
-		img_pix_put(img, px, py, ft_color_fractal(fractal, fractal->max_iter));
+	if (ft_check_shapes(img, fractal, px, py))
 		return ;
-	}
 	while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
 		&& (i < fractal->max_iter))
 	{
@@ -170,19 +225,8 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 		fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;
 		fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y) * (fractal->polar_coord.x + fractal->polar_coord.y);
 		i++;
-		if (fractal->polar_coord.x == fractal->old.x && fractal->polar_coord.y == fractal->old.y)
-		{
-			printf("periodicity checked\n");
-			i = fractal->max_iter;
-			break;
-		}
-		period++;
-		if (period > 2)
-		{
-			period = 0;
-			fractal->old.x = fractal->polar_coord.x;
-			fractal->old.y = fractal->polar_coord.y;
-		}
+		if (ft_check_period(fractal, &period, &i))
+			break ;
 	}
 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
 }
