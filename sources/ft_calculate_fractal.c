@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/26 14:19:17 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:56:13 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,33 @@ uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 	return (color);
 }
 
+// void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
+// {
+// 	size_t	i;
+
+// 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
+// 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
+// 	fractal->w = 0;
+// 	fractal->polar_coord = fractal->z_const;
+// 	fractal->sq_coord = ft_initialize_coord();
+// 	i = 0;
+// 	while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
+// 		&& (i < fractal->max_iter))
+// 	{
+// 		fractal->polar_coord.y = ((2.0 * fractal->polar_coord.x) * fractal->polar_coord.y) + fractal->px_coord.y;
+// 		fractal->polar_coord.x = fractal->sq_coord.x - fractal->sq_coord.y + fractal->px_coord.x;
+// 		fractal->sq_coord.x = fractal->polar_coord.x * fractal->polar_coord.x;
+// 		fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;
+// 		fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y) * (fractal->polar_coord.x + fractal->polar_coord.y);
+// 		i++;
+// 	}
+// 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
+// }
+
 void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	size_t	i;
+	double	q;
 
 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
@@ -127,6 +151,13 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 	fractal->polar_coord = fractal->z_const;
 	fractal->sq_coord = ft_initialize_coord();
 	i = 0;
+	q = pow(fractal->px_coord.x - 0.25, 2) + (fractal->px_coord.y * fractal->px_coord.y);
+	if (0.25 * fractal->px_coord.y * fractal->px_coord.y >= (q * (q + (fractal->px_coord.x - 0.25))) ||
+		(pow(fractal->px_coord.x + 1, 2) + (fractal->px_coord.y * fractal->px_coord.y) <= (double)1/16))
+	{
+		img_pix_put(img, px, py, ft_color_fractal(fractal, fractal->max_iter));
+		return ;
+	}
 	while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
 		&& (i < fractal->max_iter))
 	{

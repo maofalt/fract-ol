@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/25 17:58:46 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:32:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 	{
-		ft_printf("Input a fractal as argument");
+		ft_printf("Launch ./fractol with the following arguments \n1- ./fractol [fractal_type] [Real part of complexe] [Imaginary part of complexe]\n\nFractal types available: - mandelbrot | julia\nReal and imaginary part of complexe only available for mandelbrot\n\ne.g.: ./fractol julia 0.5 -0.365  ");
 	}
 	else if (ft_valid_argument(argc, argv))
 	{
