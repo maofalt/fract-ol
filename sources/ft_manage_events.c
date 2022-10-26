@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/26 01:29:57 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:27:46 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,30 @@ int	ft_handle_keypress(int keysym, t_data *data)
 	}
 	if (keysym == UP_KEY || keysym == LEFT_KEY || keysym == DOWN_KEY || keysym == RIGHT_KEY)
 	{
-		if (keysym == UP_KEY)
+		if (keysym == DOWN_KEY)
 		{
 			data->fractal->xtrm.im_max += data->fractal->xtrm.im_max * deplacement_factor;
 			data->fractal->xtrm.im_min -= data->fractal->xtrm.im_min * deplacement_factor;
 		}
-		else if (keysym == DOWN_KEY)
+		else if (keysym == UP_KEY)
 		{
 			data->fractal->xtrm.im_max -= data->fractal->xtrm.im_max * deplacement_factor;
 			data->fractal->xtrm.im_min += data->fractal->xtrm.im_min * deplacement_factor;
 		}
-		else if (keysym == LEFT_KEY)
+		else if (keysym == RIGHT_KEY)
 		{
 			data->fractal->xtrm.re_max -= data->fractal->xtrm.re_max * deplacement_factor;
 			data->fractal->xtrm.re_min += data->fractal->xtrm.re_min * deplacement_factor;
 		}
-		else if (keysym == RIGHT_KEY)
+		else if (keysym == LEFT_KEY)
 		{
 			data->fractal->xtrm.re_max += data->fractal->xtrm.re_max * deplacement_factor;
 			data->fractal->xtrm.re_min -= data->fractal->xtrm.re_min * deplacement_factor;
 		}
+		printf("New Offset");
 		data->fractal->offset.x = data->fractal->xtrm.re_min;
 		data->fractal->offset.y = data->fractal->xtrm.im_max;
+		printf("New Offset x: %f y:%f\n",data->fractal->offset.x, data->fractal->offset.y);
 		ft_render_fractal(&data->img, data->fractal);
 		data->fractal->update = 1;
 	}
