@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/26 21:28:15 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/27 00:17:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,41 @@ int	ft_handle_keypress(int keysym, t_data *data)
 			data->fractal->xtrm.re_max += delta * 0.05;
 			data->fractal->xtrm.re_min += delta * 0.05;
 		}
-		// printf("New Offset");
-		// data->fractal->offset.x = data->fractal->xtrm.re_min;
-		// data->fractal->offset.y = data->fractal->xtrm.im_max;
-		// printf("New Offset x: %f y:%f\n",data->fractal->offset.x, data->fractal->offset.y);
-		//ft_render_fractal(&data->img, data->fractal);
-		printf("zoom X %f zoom Y %f\n",data->fractal->zoom.kx, data->fractal->zoom.kx);
 		data->fractal->zoom.kx = (data->fractal->xtrm.re_max - data->fractal->xtrm.re_min) / WINDOW_WIDTH;
 		data->fractal->zoom.ky = (data->fractal->xtrm.im_max - data->fractal->xtrm.im_min) / WINDOW_HEIGHT;
 		data->fractal->offset.x = data->fractal->xtrm.re_min;
 		data->fractal->offset.y = data->fractal->xtrm.im_max;
 		data->fractal->update = 1;
 	}
+	if (keysym == MINUS_KEY || keysym == PLUS_KEY)
+	{
+		if (keysym == PLUS_KEY)
+		{
+			data->fractal->palette[0] = (data->fractal->palette[0] + 0x1FEFE);
+			data->fractal->palette[1] = (data->fractal->palette[1] + 0x000005);
+			data->fractal->palette[2] = (data->fractal->palette[2] + 0x000006);
+			data->fractal->palette[3] = (data->fractal->palette[3] + 0x000002);
+			data->fractal->palette[4] = (data->fractal->palette[4] + 0x000003);
+			data->fractal->palette[5] = (data->fractal->palette[5] + 0x000110);
+			data->fractal->palette[6] = (data->fractal->palette[6] + 0x00F010);
+			data->fractal->palette[7] = (data->fractal->palette[7] + 0xF00010);
+			data->fractal->palette[8] = (data->fractal->palette[8] + 0x005010);
+		}
+		else if (keysym == MINUS_KEY)
+		{
+			data->fractal->palette[0] = (data->fractal->palette[0] - 0x1FEFE);
+			data->fractal->palette[1] = (data->fractal->palette[1] - 0x000005);
+			data->fractal->palette[2] = (data->fractal->palette[2] - 0x000006);
+			data->fractal->palette[3] = (data->fractal->palette[3] - 0x000002);
+			data->fractal->palette[4] = (data->fractal->palette[4] - 0x000003);
+			data->fractal->palette[5] = (data->fractal->palette[5] - 0x000110);
+			data->fractal->palette[6] = (data->fractal->palette[6] - 0x00F010);
+			data->fractal->palette[7] = (data->fractal->palette[7] - 0xF00010);
+			data->fractal->palette[8] = (data->fractal->palette[8] - 0x005010);
+		}
+		data->fractal->update = 1;
+	}
+	printf("%d\n",keysym);
 	return (0);
 }
 

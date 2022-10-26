@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/23 02:43:20 by motero           ###   ########.fr        #
+#    Updated: 2022/10/26 22:55:02 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -225,7 +225,7 @@ $(OBJS_PATH_SANITIZE)%.o: $(SRCS_DIR_PS)%.c $(HDRS) $(LIBFT)
 
 $(SANITIZE) : $(OBJS_PATH_SANITIZE) $(OBJS_SANITIZE) $(LIBFT) $(HDRS)
 		@echo "\n [$(GREEN)$(bold)FSANITIZE COMPILATION$(NONE) ]"
-		@$(CC) $(CFLAGS) $(SANITIZE_FLAG) $(OBJS_SANITIZE) $(LIB_BINARY)  -o $@
+		@$(CC) $(CFLAGS) $(SANITIZE_FLAG) $(OBJS_SANITIZE) $(LIB_BINARY) $(MINILIBX_BINARY) -o $@
 		@echo "\t[ $(GREEN)✔$(NONE) ] fractol_sanitize"
 
 #make run_sanitize with good run

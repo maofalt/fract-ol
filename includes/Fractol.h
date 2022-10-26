@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/26 19:41:45 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/27 00:18:25 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@
 # define DOWN_KEY 65364
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
+# define MINUS_KEY 65453
+# define PLUS_KEY 65451
+# define C1 0x11b899
+# define C2 0x9dbf9e
+# define C3 0x57bc9c
+# define C4 0xb7cbaa
+# define C5 0xd0d6b5
+# define C6 0xe5c6b1
+# define C7 0xee7674
+# define C8 0xf49690
+# define C9 0xf9b5ac
 
 # include <limits.h>
 # include <math.h>
@@ -105,6 +116,8 @@ typedef struct s_fractal
 	t_xtrm		xtrm;
 	t_coord		z_const;
 	size_t		update;
+	size_t		color_method;
+	uint32_t	*palette;
 }	t_fractal;
 
 /* Struucture transporting  pointer from mlx */

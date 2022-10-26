@@ -6,11 +6,30 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/26 21:28:56 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/26 23:54:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Fractol.h>
+
+uint32_t	*ft_intialize_palette(void)
+{
+	uint32_t	*palette;
+
+	palette = malloc(sizeof(uint32_t) * 9);
+	if (!palette)
+		return (NULL);
+	palette[0] = C1;
+	palette[1] = C2;
+	palette[2] = C3;
+	palette[3] = C4;
+	palette[4] = C5;
+	palette[5] = C6;
+	palette[6] = C7;
+	palette[7] = C8;
+	palette[8] = C9;
+	return (palette);
+}
 
 t_fractal	*ft_initialize_fractal(char **argv, int argc)
 {
@@ -28,8 +47,10 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 	fractal->zoom = ft_initialize_zoom(fractal->fractal_type);
 	fractal->offset = ft_initialize_offset(fractal->fractal_type);
 	fractal->w = 0;
-	fractal->max_iter = 1000;
+	fractal->max_iter = 100;
 	fractal->update = 1;
+	fractal->color_method = 5;
+	fractal->palette = ft_intialize_palette();
 	return (fractal);
 }
 
@@ -68,14 +89,12 @@ uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 	uint32_t		color = 0, color1 = 0, color2 = 0;
 	double			temp;
 	int				shift;
-	size_t			color_method = 5;
 	const size_t	color_max = 0x777777;
-	uint32_t		palette[9] = {0x11b899, 0x57bc9c, 0x9dbf9e, 0xb7cbaa, 0xd0d6b5, 0xe5c6b1, 0xee7674, 0xf49690, 0xf9b5ac};
 	double			log_zn;
 	double			nu = 0;
 
 	color = 0;
-	if (color_method == 0)
+	if (fractal->color_method == 0)
 	{	
 		temp = ((double)i / fractal->max_iter) * 5;
 		if (temp > 1.0f)
@@ -85,17 +104,17 @@ uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 		shift = temp * 255;
 		color = (shift << 16) | (shift << 8) | shift;
 	}
-	else if (color_method == 1 || color_method == 2 || color_method == 3)
+	else if (fractal->color_method == 1 || fractal->color_method == 2 || fractal->color_method == 3)
 	{
 		temp = ((double)i / fractal->max_iter);
-		if (color_method == 1)
+		if (fractal->color_method == 1)
 			color = temp * (double)color_max;
-		if (color_method == 2)
+		if (fractal->color_method == 2)
 			color = ft_bernstein_interpolation(temp);
-		if (color_method == 3)
-			color = ft_linear_interpolation(palette[0], palette[8], temp);
+		if (fractal->color_method == 3)
+			color = ft_linear_interpolation(fractal->palette[0], fractal->palette[8], temp);
 	}
-	else if (color_method == 4 || color_method == 5)
+	else if (fractal->color_method == 4 || fractal->color_method == 5)
 	{
 		nu = i;
 		if (floor(i) < fractal->max_iter)
@@ -104,14 +123,14 @@ uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 			nu = i + 1 - log(log_zn / log(2)) / log(2);
 		}
 		else
-			return (0x11b899);
-		color1 = palette[(int)(nu) % 9];
-		color2 = palette[((int)(nu) + 1) % 9];
+			return (fractal->palette[0]);
+		color1 = fractal->palette[(int)(nu) % 9];
+		color2 = fractal->palette[((int)(nu) + 1) % 9];
 		temp = nu - floor(nu);
 	//	temp = fmod(i,1);
-		if (color_method == 4)
+		if (fractal->color_method == 4)
 			color = ft_bernstein_interpolation(temp);
-		if (color_method == 5)
+		if (fractal->color_method == 5)
 			color = ft_linear_interpolation(color1, color2, temp);
 	}
 	return (color);
