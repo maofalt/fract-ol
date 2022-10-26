@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/26 14:56:13 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/26 15:39:56 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,12 +144,15 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 {
 	size_t	i;
 	double	q;
+	double period;
 
 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
 	fractal->w = 0;
 	fractal->polar_coord = fractal->z_const;
 	fractal->sq_coord = ft_initialize_coord();
+	fractal->old = ft_initialize_coord();
+	period = 0;
 	i = 0;
 	q = pow(fractal->px_coord.x - 0.25, 2) + (fractal->px_coord.y * fractal->px_coord.y);
 	if (0.25 * fractal->px_coord.y * fractal->px_coord.y >= (q * (q + (fractal->px_coord.x - 0.25))) ||
@@ -167,6 +170,19 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 		fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;
 		fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y) * (fractal->polar_coord.x + fractal->polar_coord.y);
 		i++;
+		if (fractal->polar_coord.x == fractal->old.x && fractal->polar_coord.y == fractal->old.y)
+		{
+			printf("periodicity checked\n");
+			i = fractal->max_iter;
+			break;
+		}
+		period++;
+		if (period > 2)
+		{
+			period = 0;
+			fractal->old.x = fractal->polar_coord.x;
+			fractal->old.y = fractal->polar_coord.y;
+		}
 	}
 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
 }
