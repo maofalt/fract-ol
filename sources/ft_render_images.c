@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/27 23:08:43 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 00:54:17 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	ft_render_fractal(t_img *img, t_fractal *fractal)
 				ymin = ((fractal->xtrm.im_max * WINDOW_HEIGHT) / (fractal->xtrm.im_max - fractal->xtrm.im_min));
 		}
 	}
-	else if (fractal->fractal_type == 2 || fractal->fractal_type == 3)
+	else if (fractal->fractal_type == 2 || fractal->fractal_type == 3 || fractal->fractal_type == 4)
 	{
 		ymin = 0;
 		ymax = WINDOW_HEIGHT;
@@ -144,6 +144,8 @@ int	ft_render_fractal(t_img *img, t_fractal *fractal)
 				ft_calculate_mandelbrot(img, fractal, px, py);
 			else if (fractal->fractal_type == 2)
 				ft_calculate_julia(img, fractal, px, py);
+			else if (fractal->fractal_type == 4)
+				ft_calculate_burning_ship(img, fractal, px, py);
 			px++;
 		}
 		py++;

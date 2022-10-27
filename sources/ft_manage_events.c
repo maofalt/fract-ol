@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/27 23:46:12 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/27 23:52:31 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,14 @@ int	ft_handle_keypress(int keysym, t_data *data)
 	}
 	else if (keysym == SIX_PAD && data->fractal->fractal_type == 1)
 		data->fractal->fractal_type = 3;
+
+	if (keysym == X_KEY || keysym == Z_KEY )
+	{
+		if (keysym == X_KEY)
+			data->fractal->angle -= 3;
+		if (keysym == Z_KEY)
+			data->fractal->angle += 3;
+	}
 	data->fractal->update = 1;
 	printf("%d\n",keysym);
 	return (0);

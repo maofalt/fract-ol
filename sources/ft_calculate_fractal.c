@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/27 23:41:22 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 01:22:24 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 	fractal->w = 0;
 	fractal->max_iter = 100;
 	fractal->update = 1;
-	fractal->color_method = 1;
+	fractal->color_method = 5;
 	fractal->palette = ft_intialize_palette();
+	fractal->angle = 45.0;
 	return (fractal);
 }
 
@@ -136,29 +137,6 @@ uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 	return (color);
 }
 
-// void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
-// {
-// 	size_t	i;
-
-// 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
-// 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
-// 	fractal->w = 0;
-// 	fractal->polar_coord = fractal->z_const;
-// 	fractal->sq_coord = ft_initialize_coord();
-// 	i = 0;
-// 	while ((fractal->sq_coord.x + fractal->sq_coord.y <= 4)
-// 		&& (i < fractal->max_iter))
-// 	{
-// 		fractal->polar_coord.y = ((2.0 * fractal->polar_coord.x) * fractal->polar_coord.y) + fractal->px_coord.y;
-// 		fractal->polar_coord.x = fractal->sq_coord.x - fractal->sq_coord.y + fractal->px_coord.x;
-// 		fractal->sq_coord.x = fractal->polar_coord.x * fractal->polar_coord.x;
-// 		fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;
-// 		fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y) * (fractal->polar_coord.x + fractal->polar_coord.y);
-// 		i++;
-// 	}
-// 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
-// }
-
 int	ft_check_shapes(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	double	q;
@@ -228,9 +206,8 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 	size_t				i;
 	double				period;
 	double			h2 = 1.5;
-	double			angle = 120.0 / 360.0 ;
-	double			v_real = cos(2.0 * angle * PI);
-	double			v_img = sin(2.0 * angle * PI);
+	double			v_real = cos(2.0 * fractal->angle * PI / 360.0);
+	double			v_img = sin(2.0 * fractal->angle * PI /360.0);
 	double			R = 1000;
 	t_coord 		dc;
 	t_coord			u = ft_initialize_coord();
@@ -306,8 +283,35 @@ void	ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
 		fractal->px_coord.y = (2 * fractal->px_coord.x * fractal->px_coord.y) + fractal->polar_coord.y;
 		fractal->px_coord.x = fractal->w + fractal->polar_coord.x;
 		fractal->sq_coord.x = fractal->px_coord.x * fractal->px_coord.x;
-		fractal->sq_coord.y = fractal->px_coord.y * fractal->px_coord.y;;
+		fractal->sq_coord.y = fractal->px_coord.y * fractal->px_coord.y;
 		i++;
 	}
 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
+}
+
+void	ft_calculate_burning_ship(t_img *img, t_fractal *fractal, size_t px, size_t py)
+{
+	size_t	i;
+
+	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
+	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
+	fractal->w = 0;
+	fractal->polar_coord.x = fractal->px_coord.x;
+	fractal->polar_coord.y = fractal->px_coord.y;
+	fractal->sq_coord.x = (fractal->polar_coord.x * fractal->polar_coord.x);
+	fractal->sq_coord.y = (fractal->polar_coord.y * fractal->polar_coord.y);
+	fractal->old = ft_initialize_coord();
+	i = 0;
+	while ((fractal->sq_coord.x + fractal->sq_coord.y < 100)
+		&& (i < fractal->max_iter))
+	{
+		fractal->w = (fractal->polar_coord.x * fractal->polar_coord.x) - (fractal->polar_coord.y * fractal->polar_coord.y) + fractal->px_coord.x;
+		fractal->polar_coord.y = (2 * fractal->polar_coord.x * fractal->polar_coord.y) * (2 * fractal->polar_coord.x * fractal->polar_coord.y);
+		fractal->polar_coord.y = sqrt(fractal->polar_coord.y) + fractal->px_coord.y;
+		fractal->polar_coord.x = fractal->w;
+		fractal->sq_coord.x = fractal->polar_coord.x * fractal->polar_coord.x;
+		fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;
+		i++;
+	}
+	img_pix_put(img, px, WINDOW_WIDTH - py, ft_color_fractal(fractal, i));
 }

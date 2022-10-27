@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/27 22:41:06 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 00:55:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ int	ft_valid_argument(int argc, char **argv)
 				return (1);
 			else
 				return (0);
-		}		
+		}
+		else if (!(ft_strncmp(argv[1], "burning_ship", w_len)) && (argc == 2))
+			return (4);
 	}
 	return (0);
 }
@@ -75,6 +77,8 @@ size_t	ft_fractal_type(int argc, char **argv)
 	}
 	else if (!ft_strncmp(argv[1], "julia", w_len))
 		return (2);
+	else if (!ft_strncmp(argv[1], "burning_ship", w_len))
+		return (4);
 	return (0);
 }
 

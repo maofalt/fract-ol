@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/27 23:21:00 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 00:54:45 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define FOUR_PAD 65430
 # define FIVE_PAD 65437
 # define SIX_PAD 65432
+# define X_KEY 122
+# define Z_KEY 120
 # define C1 0x11b899
 # define C2 0x9dbf9e
 # define C3 0x57bc9c
@@ -126,6 +128,7 @@ typedef struct s_fractal
 	size_t		update;
 	size_t		color_method;
 	uint32_t	*palette;
+	double		angle;
 }	t_fractal;
 
 /* Struucture transporting  pointer from mlx */
@@ -186,6 +189,7 @@ int			ft_check_shapes(t_img *img, t_fractal *fractal, size_t px, size_t py);
 uint32_t	ft_color_fractal(t_fractal *fractal, double i);
 void		ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py);
 void		ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py);
+void		ft_calculate_burning_ship(t_img *img, t_fractal *fractal, size_t px, size_t py);
 uint32_t	ft_bernstein_interpolation(double i);
 uint32_t	ft_linear_interpolation(uint32_t color1, uint32_t color2, double temp);
 
