@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/26 21:38:53 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/27 22:41:06 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_valid_argument(int argc, char **argv)
 	if ((argc > 1) && (argc < 5))
 	{
 		w_len = ft_strlen(argv[1]);
-		if (!(ft_strncmp(argv[1], "mandelbrot", w_len)) && argc == 2)
+		if (!(ft_strncmp(argv[1], "mandelbrot", w_len)) && (argc > 2 || argc < 3))
 			return (1);
 		else if (!(ft_strncmp(argv[1], "julia", w_len)))
 		{
@@ -61,13 +61,18 @@ int	ft_valid_argument(int argc, char **argv)
 	return (0);
 }
 
-size_t	ft_fractal_type(char **argv)
+size_t	ft_fractal_type(int argc, char **argv)
 {
 	size_t	w_len;
 
 	w_len = ft_strlen(argv[1]);
 	if (!ft_strncmp(argv[1], "mandelbrot", w_len))
-		return (1);
+	{
+		if (argc == 2 || (argc == 3 && argv[2][0] == '1'))
+			return (1);
+		if (argc == 2 || (argc == 3 && argv[2][0] == '2'))
+			return (3);
+	}
 	else if (!ft_strncmp(argv[1], "julia", w_len))
 		return (2);
 	return (0);

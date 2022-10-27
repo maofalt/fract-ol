@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/27 00:17:40 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/27 23:46:12 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,34 @@ int	ft_handle_keypress(int keysym, t_data *data)
 		}
 		data->fractal->update = 1;
 	}
+	if (keysym == ONE_PAD)
+	{
+		data->fractal->color_method = 1;
+		data->fractal->fractal_type = 1;
+	}
+	else if (keysym == TWO_PAD)
+	{
+		data->fractal->fractal_type = 1;
+		data->fractal->color_method = 2;
+	}	
+	else if (keysym == THREE_PAD)
+	{
+		data->fractal->fractal_type = 1;
+		data->fractal->color_method = 3;
+	}
+	else if (keysym == FOUR_PAD)
+	{
+		data->fractal->fractal_type = 1;
+		data->fractal->color_method = 4;
+	}
+	else if (keysym == FIVE_PAD)
+	{
+		data->fractal->fractal_type = 1;
+		data->fractal->color_method = 5;
+	}
+	else if (keysym == SIX_PAD && data->fractal->fractal_type == 1)
+		data->fractal->fractal_type = 3;
+	data->fractal->update = 1;
 	printf("%d\n",keysym);
 	return (0);
 }
@@ -117,7 +145,6 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 	data->fractal->zoom.ky = (data->fractal->xtrm.im_max - data->fractal->xtrm.im_min) / WINDOW_HEIGHT;
 	data->fractal->offset.x = data->fractal->xtrm.re_min;
 	data->fractal->offset.y = data->fractal->xtrm.im_max;
-	printf("zoom X %f zoom Y %f\n",data->fractal->zoom.kx, data->fractal->zoom.kx);
 	data->fractal->update = 1;
 	return (0);
 }

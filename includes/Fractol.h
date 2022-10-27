@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/27 00:18:25 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/27 23:21:00 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 # define RIGHT_KEY 65363
 # define MINUS_KEY 65453
 # define PLUS_KEY 65451
+# define ONE_PAD 65436
+# define TWO_PAD 65433
+# define THREE_PAD 65435
+# define FOUR_PAD 65430
+# define FIVE_PAD 65437
+# define SIX_PAD 65432
 # define C1 0x11b899
 # define C2 0x9dbf9e
 # define C3 0x57bc9c
@@ -40,6 +46,7 @@
 # define C7 0xee7674
 # define C8 0xf49690
 # define C9 0xf9b5ac
+# define PI 3.14159265359
 
 # include <limits.h>
 # include <math.h>
@@ -52,6 +59,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "libft.h"
+# include <complex.h>
 
 /*############################################################################*/
 /*                      STRUCTURES DEFINITION                                 */
@@ -139,7 +147,7 @@ typedef struct s_data
 uint32_t	encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue);
 void		img_pix_put(t_img *img, int x, int y, int color);
 int			ft_valid_argument(int argc, char **argv);
-size_t		ft_fractal_type(char **argv);
+size_t		ft_fractal_type(int argc, char **argv);
 
 /*############################################################################*/
 /*                  	MANAGE EVENTS FUNCTIONS                               */

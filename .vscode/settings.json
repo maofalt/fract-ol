@@ -6,6 +6,7 @@
         "x.h": "c",
         "ft_render_images": "c",
         "fractol.h": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "math.h": "c"
     }
 }

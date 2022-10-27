@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/24 15:52:37 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/27 23:08:03 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_coord	ft_initialize_offset(size_t fractal_type)
 	t_coord	offset;
 
 	offset = ft_initialize_coord();
-	if (fractal_type == 1)
+	if (fractal_type == 1 || fractal_type == 3)
 	{
 		offset.x = -2;
 		offset.y = 1.12;
@@ -43,7 +43,7 @@ t_xtrm	ft_initialize_extremes(size_t fractal_type)
 {
 	t_xtrm	xtrm;
 
-	if (fractal_type == 1)
+	if (fractal_type == 1 || fractal_type == 3)
 	{
 		xtrm.re_max = 0.47;
 		xtrm.re_min = -2;
@@ -71,7 +71,7 @@ t_zoom	ft_initialize_zoom(size_t fractal_type)
 {
 	t_zoom	zoom;
 
-	if (fractal_type == 1)
+	if (fractal_type == 1 || fractal_type == 3)
 	{
 		zoom.kx = 2.47 / WINDOW_WIDTH;
 		zoom.ky = 2.24 / WINDOW_HEIGHT;
