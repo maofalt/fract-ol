@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 22:32:12 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 22:36:35 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,9 @@ typedef struct s_data
 /*                          MAIN FUNCTIONS                                    */
 /*############################################################################*/
 
-/* Validate for Julia fractals that the complexe form argumnts are valid*/
+	/* Validate for Julia fractals that the complexe form argumnts are valid*/
 int			ft_valid_d(char *str);
+	/* Function parsing which type of fractal we are going to work with*/
 int			ft_valid_argument(int argc, char **argv);
 size_t		ft_fractal_type(int argc, char **argv);
 

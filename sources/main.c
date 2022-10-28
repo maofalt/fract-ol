@@ -6,35 +6,12 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 22:32:28 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 22:40:23 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Fractol.h>
 
-int	ft_valid_argument(int argc, char **argv)
-{
-	size_t	w_len;
-
-	if ((argc > 1) && (argc < 5))
-	{
-		w_len = ft_strlen(argv[1]);
-		if (!(ft_strncmp(argv[1], "mandelbrot", w_len)) && (argc > 2 || argc < 3))
-			return (1);
-		else if (!(ft_strncmp(argv[1], "julia", w_len)))
-		{
-			if (argc == 2)
-				return (1);
-			else if (argc == 4 && ft_valid_d(argv[2]) && ft_valid_d(argv[3]))
-				return (1);
-			else
-				return (0);
-		}
-		else if (!(ft_strncmp(argv[1], "burning_ship", w_len)) && (argc == 2))
-			return (4);
-	}
-	return (0);
-}
 
 size_t	ft_fractal_type(int argc, char **argv)
 {
@@ -97,6 +74,37 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	return (1);
+}
+
+/* Function parsing which type of fractal we are going to work with : **
+** 1- "mandelbrot" as argument only or **
+** 2- "mandelbrot" + '1' or '2'  **
+** 3- "julia" without arguments or **
+** 4- "julia" + two doubles representing Z.real + I*Z.imaginary **
+** 5 - "burning_ship" without arguments */
+int	ft_valid_argument(int argc, char **argv)
+{
+	size_t	w_len;
+
+	if ((argc > 1) && (argc < 5))
+	{
+		w_len = ft_strlen(argv[1]);
+		if (!(ft_strncmp(argv[1], "mandelbrot", w_len))
+			&& (argc > 2 || argc < 3))
+			return (1);
+		else if (!(ft_strncmp(argv[1], "julia", w_len)))
+		{
+			if (argc == 2)
+				return (1);
+			else if (argc == 4 && ft_valid_d(argv[2]) && ft_valid_d(argv[3]))
+				return (1);
+			else
+				return (0);
+		}
+		else if (!(ft_strncmp(argv[1], "burning_ship", w_len)) && (argc == 2))
+			return (4);
+	}
+	return (0);
 }
 
 /* Validate for Julia fractals that the complexe form argumnts are valid,**
