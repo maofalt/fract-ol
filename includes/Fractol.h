@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 01:11:32 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 01:50:49 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ typedef struct s_img
 	int			line_len;
 	int			endian;
 }	t_img;
+
+typedef struct s_distance
+{
+	size_t	min;
+	size_t	max;
+}	t_distance;
 
 /* The x and y coordinates of the rect corresponds to its upper left corner. */
 typedef struct s_rect
@@ -145,7 +151,7 @@ void		img_pix_put(t_img *img, int x, int y, int color);
 	**key release and mxloop here)*/
 void		ft_mlx_engine(t_data *data);
 	/*engine start and alloc mlxpt, win ptr  and img*/
-int		ft_mlx_start(t_data *data);
+int			ft_mlx_start(t_data *data);
 
 /*############################################################################*/
 /*                  	MANAGE EVENTS FUNCTIONS                               */
@@ -160,10 +166,13 @@ int			ft_destroy_window(t_data *data);
 /*                          RENDER FUNCTIONS                                  */
 /*############################################################################*/
 
-void		ft_render_background(t_img *img, int color);
-int			ft_render_rect(t_img *img, t_rect rect);
-int			ft_render_fractal(t_img *img, t_fractal *fractal);
+	/* We render fracta if update == 1, in this case if a hook or **
+	**event has modified underlying constants*/
 int			ft_render(t_data *data);
+	/*Deprecated functions, for test and debug functions intended **
+	**to fill mlx_img with one color*/
+void		ft_render_background(t_img *img, int color);
+int			ft_render_fractal(t_img *img, t_fractal *fractal);
 
 /*############################################################################*/
 /*                   INITIALIZE STRUCTURE FUNCTIONS                           */
