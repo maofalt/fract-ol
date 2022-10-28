@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 15:37:40 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 16:22:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	ft_handle_keypress(int keysym, t_data *data)
 		data->fractal->offset.y = data->fractal->xtrm.im_max;
 		data->fractal->update = 1;
 	}
-	if (keysym == MINUS_KEY || keysym == PLUS_KEY)
+	if (keysym == MINUS_PAD || keysym == PLUS_PAD)
 	{
-		if (keysym == PLUS_KEY)
+		if (keysym == PLUS_PAD)
 		{
 			data->fractal->palette[0] = (data->fractal->palette[0] + 0x1FEFE);
 			data->fractal->palette[1] = (data->fractal->palette[1] + 0x000005);
@@ -63,7 +63,7 @@ int	ft_handle_keypress(int keysym, t_data *data)
 			data->fractal->palette[7] = (data->fractal->palette[7] + 0xF00010);
 			data->fractal->palette[8] = (data->fractal->palette[8] + 0x005010);
 		}
-		else if (keysym == MINUS_KEY)
+		else if (keysym == MINUS_PAD)
 		{
 			data->fractal->palette[0] = (data->fractal->palette[0] - 0x1FEFE);
 			data->fractal->palette[1] = (data->fractal->palette[1] - 0x000005);
@@ -77,6 +77,14 @@ int	ft_handle_keypress(int keysym, t_data *data)
 		}
 		data->fractal->update = 1;
 	}
+	if (keysym == BRACE_L_KEY)
+		data->fractal->r /= 2.0;
+	if (keysym == BRACE_R_KEY)
+		data->fractal->r *= 2.0;	
+	if (keysym == MINUS_KEY)
+		data->fractal->max_iter -= 10;
+	if (keysym == PLUS_KEY)
+		data->fractal->max_iter += 10;
 	if (keysym == ONE_PAD)
 	{
 		data->fractal->color_method = 1;
@@ -115,6 +123,13 @@ int	ft_handle_keypress(int keysym, t_data *data)
 			data->fractal->angle -= 3;
 		if (keysym == Z_KEY)
 			data->fractal->angle += 3;
+	}
+	if (keysym == D_KEY || keysym == C_KEY)
+	{
+		if (keysym == D_KEY)
+			data->fractal->h += 0.1;
+		if (keysym == C_KEY)
+			data->fractal->h -= 0.1;
 	}
 	data->fractal->update = 1;
 	printf("%d\n",keysym);

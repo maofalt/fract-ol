@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 14:18:44 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 16:19:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,20 @@
 # define DOWN_KEY 65364
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
-# define MINUS_KEY 65453
-# define PLUS_KEY 65451
+# define MINUS_PAD 65453
+# define PLUS_PAD 65451
 # define ONE_PAD 65436
 # define TWO_PAD 65433
 # define THREE_PAD 65435
 # define FOUR_PAD 65430
 # define FIVE_PAD 65437
 # define SIX_PAD 65432
+# define MINUS_KEY 45
+# define PLUS_KEY 61
+# define BRACE_L_KEY 91
+# define BRACE_R_KEY 93
+# define D_KEY 100
+# define C_KEY 99
 # define X_KEY 122
 # define Z_KEY 120
 # define C1 0x11b899
@@ -76,7 +82,6 @@ typedef struct s_img
 	int			line_len;
 	int			endian;
 }	t_img;
-
 
 /* The x and y coordinates of the rect corresponds to its upper left corner. */
 typedef struct s_rect
@@ -129,6 +134,8 @@ typedef struct s_fractal
 	size_t		color_method;
 	uint32_t	*palette;
 	double		angle;
+	double		h;
+	double		r;
 }	t_fractal;
 
 /* Struucture transporting  pointer from mlx */

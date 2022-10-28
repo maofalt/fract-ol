@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 14:27:41 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 16:13:07 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 	fractal->color_method = 1;
 	fractal->palette = ft_intialize_palette();
 	fractal->angle = 45.0;
+	fractal->h = 1.5;
+	fractal->r = 2.0;
 	return (fractal);
 }
 
@@ -205,10 +207,8 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 {
 	size_t				i;
 	double				period;
-	double			h2 = 1.5;
 	double			v_real = cos(2.0 * fractal->angle * PI / 360.0);
 	double			v_img = sin(2.0 * fractal->angle * PI /360.0);
-	double			R = 100;
 	t_coord 		dc;
 	t_coord			u = ft_initialize_coord();
 	double			q = 0;
@@ -226,7 +226,7 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 	i = 0;
 	if (ft_check_shapes(img, fractal, px, py))
 		return ;
-	while ((fractal->sq_coord.x + fractal->sq_coord.y <= R*R)
+	while ((fractal->sq_coord.x + fractal->sq_coord.y <= fractal->r * fractal->r)
 		&& (i < fractal->max_iter))
 	{
 		tmp = dc.x;
@@ -255,8 +255,8 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 			q = sqrt((u.x * u.x) + (u.y * u.y));
 			u.x = u.x / q;
 			u.y = u.y / q;
-			t = (u.x * v_real) + (u.y * v_img) + h2;
-			t = t / (1.0 + h2);
+			t = (u.x * v_real) + (u.y * v_img) + fractal->h;
+			t = t / (1.0 + fractal->h);
 			if (t < 0.0)
 				t = 0.0;
 			img_pix_put(img, px, py, encode_rgb(1, 255 * t, 255 * t, 255 * t));
@@ -276,7 +276,7 @@ void	ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
 	fractal->polar_coord = fractal->z_const;
 	fractal->sq_coord = ft_initialize_coord();
 	i = 0;
-	while (((fractal->sq_coord.x + fractal->sq_coord.y) < 4)
+	while (((fractal->sq_coord.x + fractal->sq_coord.y) < fractal->r *fractal->r)
 		&& (i < fractal->max_iter))
 	{
 		fractal->w = (fractal->px_coord.x * fractal->px_coord.x) - (fractal->px_coord.y * fractal->px_coord.y);
@@ -302,7 +302,7 @@ void	ft_calculate_burning_ship(t_img *img, t_fractal *fractal, size_t px, size_t
 	fractal->sq_coord.y = (fractal->polar_coord.y * fractal->polar_coord.y);
 	fractal->old = ft_initialize_coord();
 	i = 0;
-	while ((fractal->sq_coord.x + fractal->sq_coord.y < 100)
+	while ((fractal->sq_coord.x + fractal->sq_coord.y < fractal->r * fractal->r)
 		&& (i < fractal->max_iter))
 	{
 		fractal->w = (fractal->polar_coord.x * fractal->polar_coord.x) - (fractal->polar_coord.y * fractal->polar_coord.y) + fractal->px_coord.x;
