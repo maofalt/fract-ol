@@ -6,31 +6,11 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 22:40:23 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 22:43:21 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Fractol.h>
-
-
-size_t	ft_fractal_type(int argc, char **argv)
-{
-	size_t	w_len;
-
-	w_len = ft_strlen(argv[1]);
-	if (!ft_strncmp(argv[1], "mandelbrot", w_len))
-	{
-		if (argc == 2 || (argc == 3 && argv[2][0] == '1'))
-			return (1);
-		if (argc == 2 || (argc == 3 && argv[2][0] == '2'))
-			return (3);
-	}
-	else if (!ft_strncmp(argv[1], "julia", w_len))
-		return (2);
-	else if (!ft_strncmp(argv[1], "burning_ship", w_len))
-		return (4);
-	return (0);
-}
 
 int	main(int argc, char **argv)
 {

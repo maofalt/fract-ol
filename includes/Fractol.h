@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 22:36:35 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 23:18:43 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_data
 int			ft_valid_d(char *str);
 	/* Function parsing which type of fractal we are going to work with*/
 int			ft_valid_argument(int argc, char **argv);
+	/*After validating, that args are OK, we parse  the fractal_type (ft) */
 size_t		ft_fractal_type(int argc, char **argv);
 
 /*############################################################################*/
@@ -154,7 +155,7 @@ int			ft_render_fractal(t_img *img, t_fractal *fractal);
 int			ft_render(t_data *data);
 
 /*############################################################################*/
-/*                       COORDINATES FUNCTIONS                                */
+/*                   INITIALIZE STRUCTURE FUNCTIONS                           */
 /*############################################################################*/
 
 t_coord		ft_initialize_coord(void);
@@ -162,6 +163,7 @@ t_zoom		ft_initialize_zoom(size_t fractal_type);
 t_coord		ft_initialize_offset(size_t fractal_type);
 t_xtrm		ft_initialize_extremes(size_t fractal_type);
 t_coord		ft_initialize_complexe(t_fractal fractal, char **argv, int argc);
+size_t		ft_initialize_fractal_type(int argc, char **argv);
 
 /*############################################################################*/
 /*                  CALCULATE MANDELBROT FUNCTIONS                            */

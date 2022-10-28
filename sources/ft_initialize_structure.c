@@ -1,16 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_coordinates.c                                   :+:      :+:    :+:   */
+/*   ft_initialize_structure.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 15:16:18 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 23:18:26 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Fractol.h>
+
+/*After validating, that args are OK, we parse  the fractal_type (ft) **
+** 1 - "mandelbrot"  or "mandelbrot 1"--> ft = 1 **
+** 2 - "mandelbrot 1"--> ft = 3 **
+** 3 - "julia" or "julia %f %f"--> ft = 2 **
+** 4 - "burning_ship -- > ft = 4 "*/
+size_t	ft_initialize_fractal_type(int argc, char **argv)
+{
+	size_t	w_len;
+
+	w_len = ft_strlen(argv[1]);
+	if (!ft_strncmp(argv[1], "mandelbrot", w_len))
+	{
+		if (argc == 2 || (argc == 3 && argv[2][0] == '1'))
+			return (1);
+		if (argc == 2 || (argc == 3 && argv[2][0] == '2'))
+			return (3);
+	}
+	else if (!ft_strncmp(argv[1], "julia", w_len))
+		return (2);
+	else if (!ft_strncmp(argv[1], "burning_ship", w_len))
+		return (4);
+	return (0);
+}
 
 t_coord	ft_initialize_coord(void)
 {

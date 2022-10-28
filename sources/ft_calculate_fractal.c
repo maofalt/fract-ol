@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 16:13:07 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 23:20:03 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 	fractal = (t_fractal *)malloc(sizeof(t_fractal));
 	if (!fractal)
 		return (NULL);
-	fractal->fractal_type = ft_fractal_type(argc, argv);
+	fractal->fractal_type = ft_initialize_fractal_type(argc, argv);
 	fractal->px_coord = ft_initialize_coord();
 	fractal->polar_coord = ft_initialize_complexe(*fractal, argv, argc);
 	fractal->z_const = ft_initialize_complexe(*fractal, argv, argc);
