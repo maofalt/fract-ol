@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 23:18:43 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 01:11:32 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,24 @@ int			ft_valid_d(char *str);
 int			ft_valid_argument(int argc, char **argv);
 	/*After validating, that args are OK, we parse  the fractal_type (ft) */
 size_t		ft_fractal_type(int argc, char **argv);
+	/*Set of instructions to use ./fractal program*/
+void		ft_error_message(void);
+	/*destroy window ptr, mlx img ptr , free palette str, fractal structure**
+	** and destoy display*/
+void		ft_free_all(t_data *data);
 
 /*############################################################################*/
 /*                          MLX UTILS FUNCTIONS                               */
 /*############################################################################*/
 
-/*Put a pixel of a given color, passing a polar coordiate into img pointer of  MLX*/
+	/*Put a pixel of a given color, passing a polar coordiate **
+	** into img pointer of  MLX*/
 void		img_pix_put(t_img *img, int x, int y, int color);
+	/*Hooks (boutton press, button reease, destoy window, **
+	**key release and mxloop here)*/
+void		ft_mlx_engine(t_data *data);
+	/*engine start and alloc mlxpt, win ptr  and img*/
+int		ft_mlx_start(t_data *data);
 
 /*############################################################################*/
 /*                  	MANAGE EVENTS FUNCTIONS                               */
