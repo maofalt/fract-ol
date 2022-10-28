@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 01:22:24 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 14:27:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 	fractal->zoom = ft_initialize_zoom(fractal->fractal_type);
 	fractal->offset = ft_initialize_offset(fractal->fractal_type);
 	fractal->w = 0;
-	fractal->max_iter = 100;
+	fractal->max_iter = 200;
 	fractal->update = 1;
-	fractal->color_method = 5;
+	fractal->color_method = 1;
 	fractal->palette = ft_intialize_palette();
 	fractal->angle = 45.0;
 	return (fractal);
@@ -208,7 +208,7 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 	double			h2 = 1.5;
 	double			v_real = cos(2.0 * fractal->angle * PI / 360.0);
 	double			v_img = sin(2.0 * fractal->angle * PI /360.0);
-	double			R = 1000;
+	double			R = 100;
 	t_coord 		dc;
 	t_coord			u = ft_initialize_coord();
 	double			q = 0;

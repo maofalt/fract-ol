@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 00:54:45 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 14:18:44 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,5 @@ void		ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py);
 void		ft_calculate_burning_ship(t_img *img, t_fractal *fractal, size_t px, size_t py);
 uint32_t	ft_bernstein_interpolation(double i);
 uint32_t	ft_linear_interpolation(uint32_t color1, uint32_t color2, double temp);
-
 
 #endif

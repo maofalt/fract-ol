@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/27 23:52:31 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 15:37:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,32 +80,36 @@ int	ft_handle_keypress(int keysym, t_data *data)
 	if (keysym == ONE_PAD)
 	{
 		data->fractal->color_method = 1;
-		data->fractal->fractal_type = 1;
+		if (data->fractal->fractal_type == 3)
+			data->fractal->fractal_type = 1;
 	}
 	else if (keysym == TWO_PAD)
 	{
-		data->fractal->fractal_type = 1;
+		if (data->fractal->fractal_type == 3)
+			data->fractal->fractal_type = 1;
 		data->fractal->color_method = 2;
 	}	
 	else if (keysym == THREE_PAD)
 	{
-		data->fractal->fractal_type = 1;
+		if (data->fractal->fractal_type == 3)
+			data->fractal->fractal_type = 1;
 		data->fractal->color_method = 3;
 	}
 	else if (keysym == FOUR_PAD)
 	{
-		data->fractal->fractal_type = 1;
+		if (data->fractal->fractal_type == 3)
+			data->fractal->fractal_type = 1;
 		data->fractal->color_method = 4;
 	}
 	else if (keysym == FIVE_PAD)
 	{
-		data->fractal->fractal_type = 1;
+		if (data->fractal->fractal_type == 3)
+			data->fractal->fractal_type = 1;
 		data->fractal->color_method = 5;
 	}
 	else if (keysym == SIX_PAD && data->fractal->fractal_type == 1)
 		data->fractal->fractal_type = 3;
-
-	if (keysym == X_KEY || keysym == Z_KEY )
+	if (keysym == X_KEY || keysym == Z_KEY)
 	{
 		if (keysym == X_KEY)
 			data->fractal->angle -= 3;
@@ -137,14 +141,21 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 	{
 		delta_derr = (scalefactor * delta_re) - delta_re;
 		delta_deri = (scalefactor * delta_im) - delta_im;
-		data->fractal->max_iter += 5;
 	}	
 	else if (buttonsym == 5)
 	{
 		delta_derr = ((1 / scalefactor) * delta_re) - delta_re;
 		delta_deri = ((1 / scalefactor) * delta_im) - delta_im;
-		data->fractal->max_iter -= 5;
 	}
+	else if (buttonsym == 1)
+	{
+		data->fractal->z_const.x = data->fractal->offset.x + (x * data->fractal->zoom.kx);
+		data->fractal->z_const.y = data->fractal->offset.y - (y * data->fractal->zoom.ky);
+		data->fractal->fractal_type = 2;
+		data->fractal->xtrm = ft_initialize_extremes(2);
+		data->fractal->offset = ft_initialize_offset(2);
+		data->fractal->zoom = ft_initialize_zoom(2);	
+	}	
 	data->fractal->xtrm.re_min = data->fractal->xtrm.re_min - (delta_derr * xRatio);
 	data->fractal->xtrm.re_max = data->fractal->xtrm.re_max + (delta_derr * (1 - xRatio));
 	data->fractal->xtrm.im_max = data->fractal->xtrm.im_max + (delta_deri * yRatio);

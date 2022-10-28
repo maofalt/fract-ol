@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 01:15:52 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 15:16:18 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,15 @@ t_zoom	ft_initialize_zoom(size_t fractal_type)
 		zoom.kx = 4.0 / WINDOW_WIDTH;
 		zoom.ky = 4.0 / WINDOW_HEIGHT;
 	}
-	if (fractal_type == 4)
+	else if (fractal_type == 4)
 	{
 		zoom.kx = 4.0 / WINDOW_WIDTH;
 		zoom.ky = 3.0 / WINDOW_HEIGHT;
 	}
 	else
 	{
-		zoom.kx = 0;
-		zoom.ky = 0;
+		zoom.kx = 4.0 / WINDOW_WIDTH;
+		zoom.ky = 4.0 / WINDOW_HEIGHT;
 	}
 	return (zoom);
 }
@@ -114,8 +114,8 @@ t_coord	ft_initialize_complexe(t_fractal fractal, char **argv, int argc)
 		cmplx = ft_initialize_coord();
 	else if (fractal.fractal_type == 2 && argc == 2)
 	{
-		cmplx.x = 0.5;
-		cmplx.y = -0.5;
+		cmplx.x = fractal.z_const.x;
+		cmplx.y = fractal.z_const.y;
 	}
 	else if (fractal.fractal_type == 2 && argc < 5)
 	{
@@ -125,6 +125,5 @@ t_coord	ft_initialize_complexe(t_fractal fractal, char **argv, int argc)
 	}
 	else
 		cmplx = ft_initialize_coord();
-	printf("end %f %f\n", cmplx.x, cmplx.y);
 	return (cmplx);
 }
