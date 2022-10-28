@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 16:22:42 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 19:21:23 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,15 @@ int	ft_handle_keypress(int keysym, t_data *data)
 }
 
 int	ft_destroy_window(t_data *data)
-{
+{	
+	free(data->fractal->palette);
+	free(data->fractal);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	data->win_ptr = NULL;
+	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
+	exit(1);
 	return (0);
 }
 
