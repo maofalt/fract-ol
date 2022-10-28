@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 16:19:40 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 22:32:12 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,6 @@
 # define IM_MAX 1.12
 # define IM_MIN -1.12
 # define MLX_ERROR 1
-# define RED_PIXEL 0xFF0000
-# define GREEN_PIXEL 0xFF00
-# define BLUE_PIXEL 0xFF
-# define WHITE_PIXEL 0xFFFFFF
-# define BLACK_PIXEL 0x0
-# define UP_KEY 65362
-# define DOWN_KEY 65364
-# define LEFT_KEY 65361
-# define RIGHT_KEY 65363
-# define MINUS_PAD 65453
-# define PLUS_PAD 65451
-# define ONE_PAD 65436
-# define TWO_PAD 65433
-# define THREE_PAD 65435
-# define FOUR_PAD 65430
-# define FIVE_PAD 65437
-# define SIX_PAD 65432
-# define MINUS_KEY 45
-# define PLUS_KEY 61
-# define BRACE_L_KEY 91
-# define BRACE_R_KEY 93
-# define D_KEY 100
-# define C_KEY 99
-# define X_KEY 122
-# define Z_KEY 120
-# define C1 0x11b899
-# define C2 0x9dbf9e
-# define C3 0x57bc9c
-# define C4 0xb7cbaa
-# define C5 0xd0d6b5
-# define C6 0xe5c6b1
-# define C7 0xee7674
-# define C8 0xf49690
-# define C9 0xf9b5ac
 # define PI 3.14159265359
 
 # include <limits.h>
@@ -67,6 +33,8 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "libft.h"
+# include "Events.h"
+# include "Colors.h"
 # include <complex.h>
 
 /*############################################################################*/
@@ -154,10 +122,17 @@ typedef struct s_data
 /*                          MAIN FUNCTIONS                                    */
 /*############################################################################*/
 
-uint32_t	encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue);
-void		img_pix_put(t_img *img, int x, int y, int color);
+/* Validate for Julia fractals that the complexe form argumnts are valid*/
+int			ft_valid_d(char *str);
 int			ft_valid_argument(int argc, char **argv);
 size_t		ft_fractal_type(int argc, char **argv);
+
+/*############################################################################*/
+/*                          MLX UTILS FUNCTIONS                               */
+/*############################################################################*/
+
+/*Put a pixel of a given color, passing a polar coordiate into img pointer of  MLX*/
+void		img_pix_put(t_img *img, int x, int y, int color);
 
 /*############################################################################*/
 /*                  	MANAGE EVENTS FUNCTIONS                               */

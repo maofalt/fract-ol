@@ -6,38 +6,11 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 19:11:20 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/28 22:32:28 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Fractol.h>
-
-uint32_t	encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue)
-{
-	return (hue << 24 | red << 16 | green << 8 | blue);
-}
-
-void	img_pix_put(t_img *img, int x, int y, int color)
-{
-	char	*pixel;
-
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(int *)pixel = color;
-}
-
-int	ft_valid_d(char *str)
-{
-	int	c;
-
-	c = *str;
-	while (*str++)
-	{
-		if (!(ft_isdigit(c) || c == '-' || c == '.'))
-			return (0);
-		c = *str;
-	}
-	return (1);
-}
 
 int	ft_valid_argument(int argc, char **argv)
 {
@@ -122,6 +95,24 @@ int	main(int argc, char **argv)
 		mlx_destroy_display(data.mlx_ptr);
 		free(data.mlx_ptr);
 		return (0);
+	}
+	return (1);
+}
+
+/* Validate for Julia fractals that the complexe form argumnts are valid,**
+**  each character must be **
+** 1- A digit (0 - 9) **
+** 2 - Character '.' or '-' */
+int	ft_valid_d(char *str)
+{
+	int	c;
+
+	c = *str;
+	while (*str++)
+	{
+		if (!(ft_isdigit(c) || c == '-' || c == '.'))
+			return (0);
+		c = *str;
 	}
 	return (1);
 }
