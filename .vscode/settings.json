@@ -7,6 +7,8 @@
         "ft_render_images": "c",
         "fractol.h": "c",
         "cmath": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "random": "c",
+        "limits": "c"
     }
 }

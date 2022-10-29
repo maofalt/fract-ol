@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 01:51:48 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 02:09:03 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,43 @@ void	ft_render_background(t_img *img, int color)
 	}
 }
 
-int	ft_render_fractal(t_img *img, t_fractal *fractal)
+	/*We calclate the exact offst for each  fractal type in order to center it*/
+void	ft_recenter_fractal(t_fractal *fractal, t_distance *y)
 {
-	size_t			px;
-	size_t			py;
-	t_distance		y;
-
-	py = 0;
-	y.min = 0;
-	y.max = WINDOW_HEIGHT;
 	if (fractal->fractal_type == 1)
 	{
 		if (fractal->xtrm.im_min < 0 && fractal->xtrm.im_max > 0)
 		{
 			if (fractal->xtrm.im_max + fractal->xtrm.im_min >= 0)
-				y.max = ((fractal->xtrm.im_max * WINDOW_HEIGHT)
+				y->max = ((fractal->xtrm.im_max * WINDOW_HEIGHT)
 						/ (fractal->xtrm.im_max - fractal->xtrm.im_min)) + 1;
 			else
-				y.min = ((fractal->xtrm.im_max * WINDOW_HEIGHT)
+				y->min = ((fractal->xtrm.im_max * WINDOW_HEIGHT)
 						/ (fractal->xtrm.im_max - fractal->xtrm.im_min));
 		}
 	}
 	else if (fractal->fractal_type >= 2 && fractal->fractal_type <= 4)
 	{
-		y.min = 0;
-		y.max = WINDOW_HEIGHT;
+		y->min = 0;
+		y->max = WINDOW_HEIGHT;
 	}
-	py = y.min;
-	while (py <= y.max)
+}
+
+int	ft_render_fractal(t_img *img, t_fractal *fractal)
+{
+	size_t			px;
+	size_t			py;
+	t_distance		*y;
+
+	py = 0;
+	y = malloc(sizeof(t_distance));
+	if (y == NULL)
+		return (1);
+	y->min = 0;
+	y->max = WINDOW_HEIGHT;
+	ft_recenter_fractal(fractal, y);
+	py = y->min;
+	while (py <= y->max)
 	{
 		px = 0;
 		while (px < WINDOW_WIDTH)
@@ -90,19 +99,20 @@ int	ft_render_fractal(t_img *img, t_fractal *fractal)
 	if (fractal->fractal_type == 1)
 	{
 		py = 0;
-		while (py <= y.min)
+		while (py <= y->min)
 		{
 			ft_memcpy(img->addr + ((py) * img->line_len), img->addr
-				+ (img->line_len * (2 * y.min - py)), img->line_len);
+				+ (img->line_len * (2 * y->min - py)), img->line_len);
 			py++;
 		}
-		py = y.max;
+		py = y->max;
 		while (py <= WINDOW_HEIGHT)
 		{
 			ft_memcpy(img->addr + ((py) * img->line_len), img->addr
-				+ (img->line_len * (2 * y.max - py)), img->line_len);
+				+ (img->line_len * (2 * y->max - py)), img->line_len);
 			py++;
 		}
 	}
+	free(y);
 	return (0);
 }
