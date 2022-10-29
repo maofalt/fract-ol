@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 22:27:26 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 18:51:27 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,26 @@
 # define C8 0xf49690
 # define C9 0xf9b5ac
 
+# include <stdlib.h>
 # include <stdint.h>
+# include <math.h>
+# include "Structures.h"
 
 /*############################################################################*/
 /*                          COLOR FUNCTIONS                                  */
 /*############################################################################*/
 
-/*Encode of 4 unint8_t into a utin32_t, so mlx is able to read RGB in Hex */
+	/*Encode of 4 unint8_t into a utin32_t, so mlx is able to read RGB in Hex*/
 uint32_t	encode_rgb(uint8_t hue, uint8_t red, uint8_t green, uint8_t blue);
+	/*Palette intialization of 9 colors.*/
+uint32_t	*ft_intialize_palette(void);
+	/*Real color interpolation where the winterpolation follows nromalized**
+	**  curve for each channel*/
+uint32_t	ft_bernstein_interpolation(double i);
+	/*Linear interpolation */
+uint32_t	ft_linear_interpolation(uint32_t color1,
+				uint32_t color2, double temp);
+	/* */
+uint32_t	ft_color_fractal(t_fractal *fractal, double i);
 
 #endif

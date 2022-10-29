@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 15:46:57 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 18:53:20 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ int			ft_render_fractal(t_data *data);
 	**and saving time. We apply the same formulae as mxl_put pixel on img */
 void		ft_optimization_symmetry(t_data *data, t_distance *y);
 
+int			ft_check_shapes(t_img *img, t_fractal *fractal, size_t px, size_t py);
+
+int			ft_check_period(t_fractal *fractal, double *period, size_t *i);
+
 /*############################################################################*/
 /*                   INITIALIZE STRUCTURE FUNCTIONS                           */
 /*############################################################################*/
@@ -101,14 +105,10 @@ size_t		ft_initialize_fractal_type(int argc, char **argv);
 /*############################################################################*/
 /*                  CALCULATE MANDELBROT FUNCTIONS                            */
 /*############################################################################*/
-
+/*Inintialzie all fractal structure and cnts, depending on the fractal type*/
 t_fractal	*ft_initialize_fractal(char **argv, int argc);
-int			ft_check_shapes(t_img *img, t_fractal *fractal, size_t px, size_t py);
-uint32_t	ft_color_fractal(t_fractal *fractal, double i);
 void		ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py);
 void		ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py);
 void		ft_calculate_burning_ship(t_img *img, t_fractal *fractal, size_t px, size_t py);
-uint32_t	ft_bernstein_interpolation(double i);
-uint32_t	ft_linear_interpolation(uint32_t color1, uint32_t color2, double temp);
 
 #endif
