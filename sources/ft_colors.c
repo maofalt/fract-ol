@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 19:01:45 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 19:07:33 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,48 +38,20 @@ uint32_t	*ft_intialize_palette(void)
 	return (palette);
 }
 
-uint32_t	ft_bernstein_interpolation(double temp)
-{
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-
-	r = 9 * (1 - temp) * pow(temp, 3) * 255;
-	g = 15 * pow((1 - temp), 2) * pow(temp, 2) * 255;
-	b = 8.5 * pow(1 - temp, 3) * temp * 255;
-	return (encode_rgb(1, r, g, b));
-}
-
-uint32_t	ft_linear_interpolation(uint32_t col1, uint32_t col2, double temp)
-{
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	uint8_t	rgb1;
-	uint8_t	rgb2;
-
-	rgb1 = (col1 >> 16) & 0xff;
-	rgb2 = (col2 >> 16) & 0xff;
-	r = rgb1 +(rgb2 - rgb1) * temp;
-	rgb1 = (col1 >> 8) & 0xff;
-	rgb2 = (col2 >> 8) & 0xff;
-	g = rgb1 +(rgb2 - rgb1) * temp;
-	rgb1 = col1 & 0xff;
-	rgb2 = col2 & 0xff;
-	b = rgb1 +(rgb2 - rgb1) * temp;
-	return (encode_rgb(1, r, g, b));
-}
-
 uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 {
-	uint32_t		color = 0, color1 = 0, color2 = 0;
+	uint32_t		color;
+	uint32_t		color1;
+	uint32_t		color2;
 	double			temp;
 	int				shift;
-	const size_t	color_max = 0x777777;
 	double			log_zn;
-	double			nu = 0;
+	double			nu;
 
 	color = 0;
+	color1 = 0;
+	color2 = 0;
+	nu = 0;
 	if (fractal->color_method == 0)
 	{	
 		temp = ((double)i / fractal->max_iter) * 5;
@@ -94,7 +66,7 @@ uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 	{
 		temp = ((double)i / fractal->max_iter);
 		if (fractal->color_method == 1)
-			color = temp * (double)color_max;
+			color = temp * 0x777777;
 		if (fractal->color_method == 2)
 			color = ft_bernstein_interpolation(temp);
 		if (fractal->color_method == 3)
