@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/28 22:42:09 by motero           ###   ########.fr        #
+#    Updated: 2022/10/29 14:35:55 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRCS_NAME_PS = main.c \
 			ft_render_images.c \
 			ft_initialize_structure.c \
 			ft_colors.c \
-			ft_mlx_utils.c
+			ft_mlx_utils.c \
+			ft_optimizations.c
 
 SRCS_PS = $(addprefix $(SRCS_DIR_PS), $(SRCS_NAME_PS))
 

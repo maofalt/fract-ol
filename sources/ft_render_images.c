@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 14:24:34 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 14:44:44 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	ft_calculation_limits(t_fractal *fractal, t_distance *y)
 	}
 }
 
-
 	/* pan into each px & apply and apply sequence formula 'til escape radius*/
 void	ft_calculate_pixels(t_data *data, t_distance *y)
 {
@@ -104,13 +103,8 @@ void	ft_calculate_pixels(t_data *data, t_distance *y)
 /*replace t_img *img, t_fractal *fractal by t_data *data */
 int	ft_render_fractal(t_data *data)
 {
-	t_img			*img;
-	t_fractal		*fractal;
 	t_distance		*y;
-	size_t			py;
 
-	img = &data->img;
-	fractal = data->fractal;
 	y = malloc(sizeof(t_distance));
 	if (y == NULL)
 		return (1);
@@ -118,27 +112,7 @@ int	ft_render_fractal(t_data *data)
 	y->max = WINDOW_HEIGHT;
 	ft_calculation_limits(data->fractal, y);
 	ft_calculate_pixels(data, y);
-	/* function for mandelbrot allowing us to memcpy the "big size" and saving time**
-	**weapply the same formulae as mxl_put pixel on img */
-/*void ft_optimization_symmetry( t_data *data, t_distance) create again size py*/
-	if (fractal->fractal_type == 1)
-	{
-		py = 0;
-		while (py <= y->min)
-		{
-			ft_memcpy(img->addr + ((py) * img->line_len), img->addr
-				+ (img->line_len * (2 * y->min - py)), img->line_len);
-			py++;
-		}
-		py = y->max;
-		while (py <= WINDOW_HEIGHT)
-		{
-			ft_memcpy(img->addr + ((py) * img->line_len), img->addr
-				+ (img->line_len * (2 * y->max - py)), img->line_len);
-			py++;
-		}
-	}
-	/* stop here */
+	ft_optimization_symmetry(data, y);
 	free(y);
 	return (0);
 }

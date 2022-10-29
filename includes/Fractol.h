@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 14:20:40 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 14:38:56 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,13 @@ void		ft_calculation_limits(t_fractal *fractal, t_distance *y);
 	/* pan into each px & apply and apply sequence formula 'til escape radius*/
 void		ft_calculate_pixels(t_data *data, t_distance *y);
 int			ft_render_fractal(t_data *data);
+
+/*############################################################################*/
+/*                         OPTIMIZATION FUNCTIONS                             */
+/*############################################################################*/
+	/* function for mandelbrot allowing us to memcpy the "big size" **
+	**and saving time. We apply the same formulae as mxl_put pixel on img */
+void		ft_optimization_symmetry(t_data *data, t_distance *y);
 
 /*############################################################################*/
 /*                   INITIALIZE STRUCTURE FUNCTIONS                           */
