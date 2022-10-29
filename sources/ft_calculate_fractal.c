@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 22:07:33 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 22:25:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 	return (fractal);
 }
 
-void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
+void	ft_cal_mandel(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	size_t			i;
 	double			t;
@@ -71,7 +71,6 @@ size_t	ft_mandel_loop(t_fractal *fractal)
 {
 	size_t		i;
 	double		period;
-	double		tmp;
 
 	i = 0;
 	period = 0;
@@ -79,9 +78,7 @@ size_t	ft_mandel_loop(t_fractal *fractal)
 	while ((fractal->sq_coord.x + fractal->sq_coord.y <= fractal->r * fractal->r)
 		&& (i < fractal->max_iter))
 	{
-		tmp = fractal->dc.x;
-		fractal->dc.x = (2.0 * ((fractal->dc.x * fractal->polar_coord.x) - (fractal->dc.y * fractal->polar_coord.y)))+ 1.0;
-		fractal->dc.y = 2.0 * ((tmp * fractal->polar_coord.y) + (fractal->dc.y * fractal->polar_coord.x));
+		ft_derivate_complex(fractal);
 		fractal->polar_coord.y = ((2.0 * fractal->polar_coord.x) * fractal->polar_coord.y) + fractal->px_coord.y;
 		fractal->polar_coord.x = fractal->sq_coord.x - fractal->sq_coord.y + fractal->px_coord.x;
 		fractal->sq_coord.x = fractal->polar_coord.x * fractal->polar_coord.x;

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 14:44:44 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 22:17:28 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_calculate_pixels(t_data *data, t_distance *y)
 		while (px < WINDOW_WIDTH)
 		{
 			if (fractal->fractal_type == 1 || fractal->fractal_type == 3)
-				ft_calculate_mandelbrot(img, fractal, px, py);
+				ft_cal_mandel(img, fractal, px, py);
 			else if (fractal->fractal_type == 2)
 				ft_calculate_julia(img, data->fractal, px, py);
 			else if (fractal->fractal_type == 4)

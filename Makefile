@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/29 19:15:24 by motero           ###   ########.fr        #
+#    Updated: 2022/10/29 22:20:26 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ SRCS_NAME_PS = main.c \
 			ft_mlx_utils.c \
 			ft_optimizations.c \
 			ft_key_press_events.c \
-			ft_button_press_events.c
+			ft_button_press_events.c \
+			ft_complexe_math.c
 
 SRCS_PS = $(addprefix $(SRCS_DIR_PS), $(SRCS_NAME_PS))
 
