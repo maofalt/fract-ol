@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 18:30:55 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 18:38:26 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ void		ft_pad_numbers(int keysym, t_data *data);
 	/*Rotate lightm inreas ehigh of light, incease Escape radius and nbr itera*/
 void		ft_keyboard_press(int keysym, t_data *data);
 
-t_coord		ft_button_press_actions(int buttonsym, t_coord delta);
+/*############################################################################*/
+/*                  	  BUTTON PRESS FUNCTIONS                              */
+/*############################################################################*/
+
+t_coord		ft_button_press_zoom(int buttonsym, t_coord delta);
+
+void		ft_equivalent_julia(t_fractal *fractal, int x, int y,
+				int buttonsym);
 
 #endif
