@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 22:25:39 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 22:27:15 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,18 @@ size_t	ft_mandel_loop(t_fractal *fractal)
 	i = 0;
 	period = 0;
 	fractal->dc = ft_initialize_coord();
-	while ((fractal->sq_coord.x + fractal->sq_coord.y <= fractal->r * fractal->r)
-		&& (i < fractal->max_iter))
+	while ((fractal->sq_coord.x + fractal->sq_coord.y
+			<= fractal->r * fractal->r) && (i < fractal->max_iter))
 	{
 		ft_derivate_complex(fractal);
-		fractal->polar_coord.y = ((2.0 * fractal->polar_coord.x) * fractal->polar_coord.y) + fractal->px_coord.y;
-		fractal->polar_coord.x = fractal->sq_coord.x - fractal->sq_coord.y + fractal->px_coord.x;
+		fractal->polar_coord.y = ((2.0 * fractal->polar_coord.x)
+				* fractal->polar_coord.y) + fractal->px_coord.y;
+		fractal->polar_coord.x = fractal->sq_coord.x
+			- fractal->sq_coord.y + fractal->px_coord.x;
 		fractal->sq_coord.x = fractal->polar_coord.x * fractal->polar_coord.x;
 		fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;
-		fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y) * (fractal->polar_coord.x + fractal->polar_coord.y);
+		fractal->w = (fractal->polar_coord.x + fractal->polar_coord.y)
+			* (fractal->polar_coord.x + fractal->polar_coord.y);
 		i++;
 		if (ft_check_period(fractal, &period, &i))
 			break ;
