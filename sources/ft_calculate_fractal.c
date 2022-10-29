@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 23:47:58 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 00:12:25 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,10 @@ void	ft_cal_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
 	while (((fractal->sq_coord.x + fractal->sq_coord.y)
 			< fractal->r * fractal->r) && (i < fractal->max_iter))
 	{
-		fractal->w = (fractal->px_coord.x * fractal->px_coord.x) - (fractal->px_coord.y * fractal->px_coord.y);
-		fractal->px_coord.y = (2 * fractal->px_coord.x * fractal->px_coord.y) + fractal->polar_coord.y;
+		fractal->w = (fractal->px_coord.x * fractal->px_coord.x)
+			- (fractal->px_coord.y * fractal->px_coord.y);
+		fractal->px_coord.y = (2 * fractal->px_coord.x * fractal->px_coord.y)
+			+ fractal->polar_coord.y;
 		fractal->px_coord.x = fractal->w + fractal->polar_coord.x;
 		fractal->sq_coord.x = fractal->px_coord.x * fractal->px_coord.x;
 		fractal->sq_coord.y = fractal->px_coord.y * fractal->px_coord.y;
@@ -124,8 +126,7 @@ void	ft_cal_burn_ship(t_img *img, t_fractal *fractal, size_t px, size_t py)
 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
 	fractal->w = 0;
-	fractal->polar_coord.x = fractal->px_coord.x;
-	fractal->polar_coord.y = fractal->px_coord.y;
+	fractal->polar_coord = fractal->px_coord;
 	fractal->sq_coord.x = (fractal->polar_coord.x * fractal->polar_coord.x);
 	fractal->sq_coord.y = (fractal->polar_coord.y * fractal->polar_coord.y);
 	fractal->old = ft_initialize_coord();
@@ -133,9 +134,12 @@ void	ft_cal_burn_ship(t_img *img, t_fractal *fractal, size_t px, size_t py)
 	while ((fractal->sq_coord.x + fractal->sq_coord.y < fractal->r * fractal->r)
 		&& (i < fractal->max_iter))
 	{
-		fractal->w = (fractal->polar_coord.x * fractal->polar_coord.x) - (fractal->polar_coord.y * fractal->polar_coord.y) + fractal->px_coord.x;
-		fractal->polar_coord.y = (2 * fractal->polar_coord.x * fractal->polar_coord.y) * (2 * fractal->polar_coord.x * fractal->polar_coord.y);
-		fractal->polar_coord.y = sqrt(fractal->polar_coord.y) + fractal->px_coord.y;
+		fractal->w = fractal->sq_coord.x - fractal->sq_coord.y
+			+ fractal->px_coord.x;
+		fractal->polar_coord.y = pow((2 * fractal->polar_coord.x
+					* fractal->polar_coord.y), 2);
+		fractal->polar_coord.y = sqrt(fractal->polar_coord.y)
+			+ fractal->px_coord.y;
 		fractal->polar_coord.x = fractal->w;
 		fractal->sq_coord.x = fractal->polar_coord.x * fractal->polar_coord.x;
 		fractal->sq_coord.y = fractal->polar_coord.y * fractal->polar_coord.y;

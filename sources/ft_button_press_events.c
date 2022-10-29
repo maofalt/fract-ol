@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 18:38:48 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 00:08:45 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_coord	ft_button_press_zoom(int buttonsym, t_coord delta)
 
 void	ft_equivalent_julia(t_fractal *fractal, int x, int y, int buttonsym)
 {
-	if (buttonsym == 1)
+	if (buttonsym == 1 && fractal->fractal_type != 4)
 	{
 		fractal->z_const.x = fractal->offset.x + (x * fractal->zoom.kx);
 		fractal->z_const.y = fractal->offset.y - (y * fractal->zoom.ky);
