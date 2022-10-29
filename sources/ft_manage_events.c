@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 19:21:23 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 15:48:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,124 +14,123 @@
 
 int	ft_handle_keypress(int keysym, t_data *data)
 {
-	double delta = data->fractal->xtrm.im_max - data->fractal->xtrm.im_min;
+	double		delta;
+	t_fractal	*fractal;
 
-	if (keysym == XK_Escape)
-	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		data->win_ptr = NULL;
-	}
+	fractal = data->fractal;
+	delta = fractal->xtrm.im_max - fractal->xtrm.im_min;
+	ft_destroy_window_button(keysym, data);
 	if (keysym == UP_KEY || keysym == LEFT_KEY || keysym == DOWN_KEY || keysym == RIGHT_KEY)
 	{
 		if (keysym == DOWN_KEY)
 		{
-			data->fractal->xtrm.im_max += delta * 0.05;
-			data->fractal->xtrm.im_min += delta * 0.05;
+			fractal->xtrm.im_max += delta * 0.05;
+			fractal->xtrm.im_min += delta * 0.05;
 		}
 		else if (keysym == UP_KEY)
 		{
-			data->fractal->xtrm.im_max -= delta * 0.05;
-			data->fractal->xtrm.im_min -= delta * 0.05;
+			fractal->xtrm.im_max -= delta * 0.05;
+			fractal->xtrm.im_min -= delta * 0.05;
 		}
 		else if (keysym == RIGHT_KEY)
 		{
-			data->fractal->xtrm.re_max -= delta * 0.05;
-			data->fractal->xtrm.re_min -= delta * 0.05;
+			fractal->xtrm.re_max -= delta * 0.05;
+			fractal->xtrm.re_min -= delta * 0.05;
 		}
 		else if (keysym == LEFT_KEY)
 		{
-			data->fractal->xtrm.re_max += delta * 0.05;
-			data->fractal->xtrm.re_min += delta * 0.05;
+			fractal->xtrm.re_max += delta * 0.05;
+			fractal->xtrm.re_min += delta * 0.05;
 		}
-		data->fractal->zoom.kx = (data->fractal->xtrm.re_max - data->fractal->xtrm.re_min) / WINDOW_WIDTH;
-		data->fractal->zoom.ky = (data->fractal->xtrm.im_max - data->fractal->xtrm.im_min) / WINDOW_HEIGHT;
-		data->fractal->offset.x = data->fractal->xtrm.re_min;
-		data->fractal->offset.y = data->fractal->xtrm.im_max;
-		data->fractal->update = 1;
+		fractal->zoom.kx = (fractal->xtrm.re_max - fractal->xtrm.re_min) / WINDOW_WIDTH;
+		fractal->zoom.ky = (fractal->xtrm.im_max - fractal->xtrm.im_min) / WINDOW_HEIGHT;
+		fractal->offset.x = fractal->xtrm.re_min;
+		fractal->offset.y = fractal->xtrm.im_max;
+		fractal->update = 1;
 	}
 	if (keysym == MINUS_PAD || keysym == PLUS_PAD)
 	{
 		if (keysym == PLUS_PAD)
 		{
-			data->fractal->palette[0] = (data->fractal->palette[0] + 0x1FEFE);
-			data->fractal->palette[1] = (data->fractal->palette[1] + 0x000005);
-			data->fractal->palette[2] = (data->fractal->palette[2] + 0x000006);
-			data->fractal->palette[3] = (data->fractal->palette[3] + 0x000002);
-			data->fractal->palette[4] = (data->fractal->palette[4] + 0x000003);
-			data->fractal->palette[5] = (data->fractal->palette[5] + 0x000110);
-			data->fractal->palette[6] = (data->fractal->palette[6] + 0x00F010);
-			data->fractal->palette[7] = (data->fractal->palette[7] + 0xF00010);
-			data->fractal->palette[8] = (data->fractal->palette[8] + 0x005010);
+			fractal->palette[0] = (fractal->palette[0] + 0x1FEFE);
+			fractal->palette[1] = (fractal->palette[1] + 0x000005);
+			fractal->palette[2] = (fractal->palette[2] + 0x000006);
+			fractal->palette[3] = (fractal->palette[3] + 0x000002);
+			fractal->palette[4] = (fractal->palette[4] + 0x000003);
+			fractal->palette[5] = (fractal->palette[5] + 0x000110);
+			fractal->palette[6] = (fractal->palette[6] + 0x00F010);
+			fractal->palette[7] = (fractal->palette[7] + 0xF00010);
+			fractal->palette[8] = (fractal->palette[8] + 0x005010);
 		}
 		else if (keysym == MINUS_PAD)
 		{
-			data->fractal->palette[0] = (data->fractal->palette[0] - 0x1FEFE);
-			data->fractal->palette[1] = (data->fractal->palette[1] - 0x000005);
-			data->fractal->palette[2] = (data->fractal->palette[2] - 0x000006);
-			data->fractal->palette[3] = (data->fractal->palette[3] - 0x000002);
-			data->fractal->palette[4] = (data->fractal->palette[4] - 0x000003);
-			data->fractal->palette[5] = (data->fractal->palette[5] - 0x000110);
-			data->fractal->palette[6] = (data->fractal->palette[6] - 0x00F010);
-			data->fractal->palette[7] = (data->fractal->palette[7] - 0xF00010);
-			data->fractal->palette[8] = (data->fractal->palette[8] - 0x005010);
+			fractal->palette[0] = (fractal->palette[0] - 0x1FEFE);
+			fractal->palette[1] = (fractal->palette[1] - 0x000005);
+			fractal->palette[2] = (fractal->palette[2] - 0x000006);
+			fractal->palette[3] = (fractal->palette[3] - 0x000002);
+			fractal->palette[4] = (fractal->palette[4] - 0x000003);
+			fractal->palette[5] = (fractal->palette[5] - 0x000110);
+			fractal->palette[6] = (fractal->palette[6] - 0x00F010);
+			fractal->palette[7] = (fractal->palette[7] - 0xF00010);
+			fractal->palette[8] = (fractal->palette[8] - 0x005010);
 		}
-		data->fractal->update = 1;
+		fractal->update = 1;
 	}
 	if (keysym == BRACE_L_KEY)
-		data->fractal->r /= 2.0;
+		fractal->r /= 2.0;
 	if (keysym == BRACE_R_KEY)
-		data->fractal->r *= 2.0;	
+		fractal->r *= 2.0;	
 	if (keysym == MINUS_KEY)
-		data->fractal->max_iter -= 10;
+		fractal->max_iter -= 10;
 	if (keysym == PLUS_KEY)
-		data->fractal->max_iter += 10;
+		fractal->max_iter += 10;
 	if (keysym == ONE_PAD)
 	{
-		data->fractal->color_method = 1;
-		if (data->fractal->fractal_type == 3)
-			data->fractal->fractal_type = 1;
+		fractal->color_method = 1;
+		if (fractal->fractal_type == 3)
+			fractal->fractal_type = 1;
 	}
 	else if (keysym == TWO_PAD)
 	{
-		if (data->fractal->fractal_type == 3)
-			data->fractal->fractal_type = 1;
-		data->fractal->color_method = 2;
+		if (fractal->fractal_type == 3)
+			fractal->fractal_type = 1;
+		fractal->color_method = 2;
 	}	
 	else if (keysym == THREE_PAD)
 	{
-		if (data->fractal->fractal_type == 3)
-			data->fractal->fractal_type = 1;
-		data->fractal->color_method = 3;
+		if (fractal->fractal_type == 3)
+			fractal->fractal_type = 1;
+		fractal->color_method = 3;
 	}
 	else if (keysym == FOUR_PAD)
 	{
-		if (data->fractal->fractal_type == 3)
-			data->fractal->fractal_type = 1;
-		data->fractal->color_method = 4;
+		if (fractal->fractal_type == 3)
+			fractal->fractal_type = 1;
+		fractal->color_method = 4;
 	}
 	else if (keysym == FIVE_PAD)
 	{
-		if (data->fractal->fractal_type == 3)
-			data->fractal->fractal_type = 1;
-		data->fractal->color_method = 5;
+		if (fractal->fractal_type == 3)
+			fractal->fractal_type = 1;
+		fractal->color_method = 5;
 	}
-	else if (keysym == SIX_PAD && data->fractal->fractal_type == 1)
-		data->fractal->fractal_type = 3;
+	else if (keysym == SIX_PAD && fractal->fractal_type == 1)
+		fractal->fractal_type = 3;
 	if (keysym == X_KEY || keysym == Z_KEY)
 	{
 		if (keysym == X_KEY)
-			data->fractal->angle -= 3;
+			fractal->angle -= 3;
 		if (keysym == Z_KEY)
-			data->fractal->angle += 3;
+			fractal->angle += 3;
 	}
 	if (keysym == D_KEY || keysym == C_KEY)
 	{
 		if (keysym == D_KEY)
-			data->fractal->h += 0.1;
+			fractal->h += 0.1;
 		if (keysym == C_KEY)
-			data->fractal->h -= 0.1;
+			fractal->h -= 0.1;
 	}
-	data->fractal->update = 1;
+	fractal->update = 1;
 	printf("%d\n",keysym);
 	return (0);
 }

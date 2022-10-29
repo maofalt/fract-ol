@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/29 14:35:55 by motero           ###   ########.fr        #
+#    Updated: 2022/10/29 15:43:37 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = fractol
 #                                 HEADERS                                     #
 #=============================================================================#
 
-HDR_NAME = Fractol.h Events.h Colors.h#here other headers too
+HDR_NAME = Fractol.h Events.h Colors.h Structures.h#here other headers too
 HDR_DIR = includes/
 HDRS = $(addprefix $(HDR_DIR), $(HDR_NAME))
 HDR_INC = -I includes -I libft/includes -I minilibx-linux/
@@ -52,7 +52,8 @@ SRCS_NAME_PS = main.c \
 			ft_initialize_structure.c \
 			ft_colors.c \
 			ft_mlx_utils.c \
-			ft_optimizations.c
+			ft_optimizations.c \
+			ft_button_press_events.c
 
 SRCS_PS = $(addprefix $(SRCS_DIR_PS), $(SRCS_NAME_PS))
 

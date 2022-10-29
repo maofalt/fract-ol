@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 22:15:11 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 15:48:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,19 @@
 # define C_KEY 99
 # define X_KEY 122
 # define Z_KEY 120
+
+# include "Structures.h"
+
+/*############################################################################*/
+/*                  	     BUTTON PRESS FUNCTIONS                           */
+/*############################################################################*/
+
+	/*Destroys Window by pressing Esc buttons*/
+void		ft_destroy_window_button(int keysym, t_data *data);
+
+int			ft_handle_keypress(int keysym, t_data *data);
+int			ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data);
+int			ft_handle_keyrelease(int keysym, t_data *data);
+int			ft_destroy_window(t_data *data);
 
 #endif
