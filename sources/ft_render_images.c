@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 02:21:00 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 14:05:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_render(t_data *data)
 		return (1);
 	if (data->fractal->update)
 	{
-		ft_render_fractal(&data->img, data->fractal);
+		ft_render_fractal(data);
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 			data->img.mlx_img, 0, 0);
 		data->fractal->update = 0;
@@ -72,8 +72,10 @@ void	ft_calculation_limits(t_fractal *fractal, t_distance *y)
 }
 
 /*replace t_img *img, t_fractal *fractal by t_data *data */
-int	ft_render_fractal(t_img *img, t_fractal *fractal)
+int	ft_render_fractal(t_data *data)
 {
+	t_img			*img;
+	t_fractal		*fractal;
 	size_t			px;
 	size_t			py;
 	t_distance		*y;
@@ -83,8 +85,10 @@ int	ft_render_fractal(t_img *img, t_fractal *fractal)
 		return (1);
 	y->min = 0;
 	y->max = WINDOW_HEIGHT;
-	ft_calculation_limits(fractal, y);
+	ft_calculation_limits(data->fractal, y);
 	/*create void	ft_calculate_pixels(t_data *data, t_distance y) creae px,py in new function and  */
+	img = &data->img;
+	fractal = data->fractal;
 	py = 0;
 	py = y->min;
 	while (py <= y->max)
@@ -95,9 +99,9 @@ int	ft_render_fractal(t_img *img, t_fractal *fractal)
 			if (fractal->fractal_type == 1 || fractal->fractal_type == 3)
 				ft_calculate_mandelbrot(img, fractal, px, py);
 			else if (fractal->fractal_type == 2)
-				ft_calculate_julia(img, fractal, px, py);
+				ft_calculate_julia(img, data->fractal, px, py);
 			else if (fractal->fractal_type == 4)
-				ft_calculate_burning_ship(img, fractal, px, py);
+				ft_calculate_burning_ship(img, data->fractal, px, py);
 			px++;
 		}
 		py++;
