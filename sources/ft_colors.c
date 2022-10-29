@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 19:21:46 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 19:26:31 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,37 +41,14 @@ uint32_t	*ft_intialize_palette(void)
 uint32_t	ft_color_fractal(t_fractal *fractal, double i)
 {
 	uint32_t		color;
-	uint32_t		color1;
-	uint32_t		color2;
-	double			temp;
-	double			log_zn;
-	double			nu;
 
 	color = 0;
-	color1 = 0;
-	color2 = 0;
-	nu = 0;
 	if (fractal->color_method == 0)
 		color = ft_color_method_0(fractal, i);
-	else if (fractal->color_method == 1 || fractal->color_method == 2 || fractal->color_method == 3)
+	else if (fractal->color_method == 1 || fractal->color_method == 2
+		|| fractal->color_method == 3)
 		color = ft_color_method_123(fractal, i);
 	else if (fractal->color_method == 4 || fractal->color_method == 5)
-	{
-		nu = i;
-		if (floor(i) < fractal->max_iter)
-		{
-			log_zn = log(fractal->sq_coord.x + fractal->sq_coord.y) / 2;
-			nu = i + 1 - log(log_zn / log(2)) / log(2);
-		}
-		else
-			return (fractal->palette[0]);
-		color1 = fractal->palette[(int)(nu) % 9];
-		color2 = fractal->palette[((int)(nu) + 1) % 9];
-		temp = nu - floor(nu);
-		if (fractal->color_method == 4)
-			color = ft_bernstein_interpolation(temp);
-		if (fractal->color_method == 5)
-			color = ft_linear_interpolation(color1, color2, temp);
-	}
+		color = ft_color_method_45(fractal, i);
 	return (color);
 }

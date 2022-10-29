@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 19:21:32 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 19:26:08 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,31 @@ uint32_t	ft_color_method_123(t_fractal *fractal, double i)
 		color = ft_bernstein_interpolation(temp);
 	if (fractal->color_method == 3)
 		color = ft_linear_interpolation(palette[0], palette[8], temp);
+	return (color);
+}
+
+uint32_t	ft_color_method_45(t_fractal *fractal, double i)
+{
+	double		nu;
+	uint32_t	color;
+	uint32_t	color2;
+	double		log_zn;
+	double		temp;
+
+	nu = i;
+	if (floor(i) < fractal->max_iter)
+	{
+		log_zn = log(fractal->sq_coord.x + fractal->sq_coord.y) / 2;
+		nu = i + 1 - log(log_zn / log(2)) / log(2);
+	}
+	else
+		return (fractal->palette[0]);
+	color = fractal->palette[(int)(nu) % 9];
+	color2 = fractal->palette[((int)(nu) + 1) % 9];
+	temp = nu - floor(nu);
+	if (fractal->color_method == 4)
+		color = ft_bernstein_interpolation(temp);
+	if (fractal->color_method == 5)
+		color = ft_linear_interpolation(color, color2, temp);
 	return (color);
 }
