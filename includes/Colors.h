@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 18:51:27 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 19:19:30 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,12 @@ uint32_t	ft_linear_interpolation(uint32_t color1,
 				uint32_t color2, double temp);
 	/* */
 uint32_t	ft_color_fractal(t_fractal *fractal, double i);
+
+/*############################################################################*/
+/*                         COLORING METHODS FUNCTIONS                         */
+/*############################################################################*/
+
+uint32_t	ft_color_method_0(t_fractal *fractal, double i);
+uint32_t	ft_color_method_123(t_fractal *fractal, double i);
 
 #endif
