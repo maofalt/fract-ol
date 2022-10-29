@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 18:07:14 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 18:10:28 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,16 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 {
 	t_coord		delta;
 	t_coord		delta_der;
-	// double		delta_re;
-	// double		delta_im;
-	// double		delta_derr;
-	// double		delta_deri;
-	double		xRatio;
-	double		yRatio;
+	t_coord		ratio;
 	double		scalefactor;
 	t_fractal	*fractal;
 
 	fractal = data->fractal;
 	delta.x = fractal->xtrm.re_max - fractal->xtrm.re_min;
 	delta.y = fractal->xtrm.im_max - fractal->xtrm.im_min;
-	delta_der.x = 0;
-	delta_der.y = 0;
-	xRatio = (double)x / WINDOW_WIDTH;
-	yRatio = (double)y / WINDOW_HEIGHT;
+	delta_der = ft_initialize_coord();
+	ratio.x = (double)x / WINDOW_WIDTH;
+	ratio.y = (double)y / WINDOW_HEIGHT;
 	scalefactor = 1 / 1.1;
 	if (buttonsym == 4)
 	{
@@ -79,10 +73,10 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 		fractal->offset = ft_initialize_offset(2);
 		fractal->zoom = ft_initialize_zoom(2);
 	}	
-	fractal->xtrm.re_min = fractal->xtrm.re_min - (delta_der.x * xRatio);
-	fractal->xtrm.re_max = fractal->xtrm.re_max + (delta_der.x * (1 - xRatio));
-	fractal->xtrm.im_max = fractal->xtrm.im_max + (delta_der.y * yRatio);
-	fractal->xtrm.im_min = fractal->xtrm.im_min - (delta_der.y * (1 - yRatio));
+	fractal->xtrm.re_min = fractal->xtrm.re_min - (delta_der.x * ratio.x);
+	fractal->xtrm.re_max = fractal->xtrm.re_max + (delta_der.x * (1 - ratio.x));
+	fractal->xtrm.im_max = fractal->xtrm.im_max + (delta_der.y * ratio.y);
+	fractal->xtrm.im_min = fractal->xtrm.im_min - (delta_der.y * (1 - ratio.y));
 	fractal->zoom.kx = (fractal->xtrm.re_max - fractal->xtrm.re_min) / WINDOW_WIDTH;
 	fractal->zoom.ky = (fractal->xtrm.im_max - fractal->xtrm.im_min) / WINDOW_HEIGHT;
 	fractal->offset.x = fractal->xtrm.re_min;
