@@ -6,11 +6,29 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 01:11:54 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 00:59:32 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Fractol.h>
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (0);
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	if (s1[i] == s2[i])
+		return (1);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -51,15 +69,12 @@ void	ft_free_all(t_data *data)
 ** 5 - "burning_ship" without arguments */
 int	ft_valid_argument(int argc, char **argv)
 {
-	size_t	w_len;
-
 	if ((argc > 1) && (argc < 5))
 	{
-		w_len = ft_strlen(argv[1]);
-		if (!(ft_strncmp(argv[1], "mandelbrot", w_len))
+		if ((ft_strcmp(argv[1], "mandelbrot"))
 			&& (argc > 2 || argc < 3))
 			return (1);
-		else if (!(ft_strncmp(argv[1], "julia", w_len)))
+		else if ((ft_strcmp(argv[1], "julia")))
 		{
 			if (argc == 2)
 				return (1);
@@ -68,7 +83,7 @@ int	ft_valid_argument(int argc, char **argv)
 			else
 				return (0);
 		}
-		else if (!(ft_strncmp(argv[1], "burning_ship", w_len)) && (argc == 2))
+		else if ((ft_strcmp(argv[1], "burning_ship")) && (argc == 2))
 			return (4);
 	}
 	return (0);
@@ -80,14 +95,21 @@ int	ft_valid_argument(int argc, char **argv)
 ** 2 - Character '.' or '-' */
 int	ft_valid_d(char *str)
 {
-	int	c;
+	int		c;
+	int		b;
 
+	b = 0;
 	c = *str;
-	while (*str++)
+	while (*str)
 	{
 		if (!(ft_isdigit(c) || c == '-' || c == '.'))
 			return (0);
+		b = *str++;
 		c = *str;
+		if (b == '.' && c == '-')
+			return (0);
+		if (b == '-' && c == '.')
+			return (0);
 	}
 	return (1);
 }
