@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 17:11:59 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 18:01:59 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,23 @@ int	ft_destroy_window(t_data *data)
 
 int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 {
-	double	delta_re;
-	double	delta_im;
-	double	delta_derr;
-	double	delta_deri;
-	double xRatio = (double)x / WINDOW_WIDTH;
-	double yRatio = (double)y / WINDOW_HEIGHT;
-	double	scalefactor = 1 / 1.1;
+	double		delta_re;
+	double		delta_im;
+	double		delta_derr;
+	double		delta_deri;
+	double		xRatio;
+	double		yRatio;
+	double		scalefactor;
+	t_fractal	*fractal;
 
-	delta_re = data->fractal->xtrm.re_max - data->fractal->xtrm.re_min;
-	delta_im = data->fractal->xtrm.im_max - data->fractal->xtrm.im_min;
+	fractal = data->fractal;
+	delta_re = fractal->xtrm.re_max - fractal->xtrm.re_min;
+	delta_im = fractal->xtrm.im_max - fractal->xtrm.im_min;
 	delta_derr = 0;
 	delta_deri = 0;
 	xRatio = (double)x / WINDOW_WIDTH;
 	yRatio = (double)y / WINDOW_HEIGHT;
+	scalefactor = 1 / 1.1;
 	if (buttonsym == 4)
 	{
 		delta_derr = (scalefactor * delta_re) - delta_re;
@@ -67,21 +70,21 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 	}
 	else if (buttonsym == 1)
 	{
-		data->fractal->z_const.x = data->fractal->offset.x + (x * data->fractal->zoom.kx);
-		data->fractal->z_const.y = data->fractal->offset.y - (y * data->fractal->zoom.ky);
-		data->fractal->fractal_type = 2;
-		data->fractal->xtrm = ft_initialize_extremes(2);
-		data->fractal->offset = ft_initialize_offset(2);
-		data->fractal->zoom = ft_initialize_zoom(2);	
+		fractal->z_const.x = fractal->offset.x + (x * fractal->zoom.kx);
+		fractal->z_const.y = fractal->offset.y - (y * fractal->zoom.ky);
+		fractal->fractal_type = 2;
+		fractal->xtrm = ft_initialize_extremes(2);
+		fractal->offset = ft_initialize_offset(2);
+		fractal->zoom = ft_initialize_zoom(2);	
 	}	
-	data->fractal->xtrm.re_min = data->fractal->xtrm.re_min - (delta_derr * xRatio);
-	data->fractal->xtrm.re_max = data->fractal->xtrm.re_max + (delta_derr * (1 - xRatio));
-	data->fractal->xtrm.im_max = data->fractal->xtrm.im_max + (delta_deri * yRatio);
-	data->fractal->xtrm.im_min = data->fractal->xtrm.im_min - (delta_deri * (1 - yRatio));
-	data->fractal->zoom.kx = (data->fractal->xtrm.re_max - data->fractal->xtrm.re_min) / WINDOW_WIDTH;
-	data->fractal->zoom.ky = (data->fractal->xtrm.im_max - data->fractal->xtrm.im_min) / WINDOW_HEIGHT;
-	data->fractal->offset.x = data->fractal->xtrm.re_min;
-	data->fractal->offset.y = data->fractal->xtrm.im_max;
+	fractal->xtrm.re_min = fractal->xtrm.re_min - (delta_derr * xRatio);
+	fractal->xtrm.re_max = fractal->xtrm.re_max + (delta_derr * (1 - xRatio));
+	fractal->xtrm.im_max = fractal->xtrm.im_max + (delta_deri * yRatio);
+	fractal->xtrm.im_min = fractal->xtrm.im_min - (delta_deri * (1 - yRatio));
+	fractal->zoom.kx = (fractal->xtrm.re_max - fractal->xtrm.re_min) / WINDOW_WIDTH;
+	fractal->zoom.ky = (fractal->xtrm.im_max - fractal->xtrm.im_min) / WINDOW_HEIGHT;
+	fractal->offset.x = fractal->xtrm.re_min;
+	fractal->offset.y = fractal->xtrm.im_max;
 	data->fractal->update = 1;
 	return (0);
 }

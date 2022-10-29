@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 17:53:59 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 17:59:55 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,18 @@ void	ft_rotate_palette(int keysym, t_data *data)
 	if (keysym == MINUS_PAD)
 		sign = -1.0 * sign;
 	fractal = data->fractal;
-	fractal->palette[0] = (fractal->palette[0] + (sign * 0x1FEFE));
-	fractal->palette[1] = (fractal->palette[1] + (sign * 0x000005));
-	fractal->palette[2] = (fractal->palette[2] + (sign * 0x000006));
-	fractal->palette[3] = (fractal->palette[3] + (sign * 0x000002));
-	fractal->palette[4] = (fractal->palette[4] + (sign * 0x000003));
-	fractal->palette[5] = (fractal->palette[5] + (sign * 0x000110));
-	fractal->palette[6] = (fractal->palette[6] + (sign * 0x00F010));
-	fractal->palette[7] = (fractal->palette[7] + (sign * 0xF00010));
-	fractal->palette[8] = (fractal->palette[8] + (sign * 0x005010));
+	if (keysym == MINUS_PAD || keysym == PLUS_PAD)
+	{
+		fractal->palette[0] = (fractal->palette[0] + (sign * 0x1FEFE));
+		fractal->palette[1] = (fractal->palette[1] + (sign * 0x000005));
+		fractal->palette[2] = (fractal->palette[2] + (sign * 0x000006));
+		fractal->palette[3] = (fractal->palette[3] + (sign * 0x000002));
+		fractal->palette[4] = (fractal->palette[4] + (sign * 0x000003));
+		fractal->palette[5] = (fractal->palette[5] + (sign * 0x000110));
+		fractal->palette[6] = (fractal->palette[6] + (sign * 0x00F010));
+		fractal->palette[7] = (fractal->palette[7] + (sign * 0xF00010));
+		fractal->palette[8] = (fractal->palette[8] + (sign * 0x005010));
+	}
 }
 
 	/*Pad nbrs 1-6 change color structure*/
@@ -80,7 +83,8 @@ void	ft_pad_numbers(int keysym, t_data *data)
 	fractal = data->fractal;
 	if (keysym == SIX_PAD && fractal->fractal_type == 1)
 		fractal->fractal_type = 3;
-	else if (keysym == ONE_PAD || keysym == TWO_PAD || keysym == THREE_PAD || keysym == FOUR_PAD || keysym == FIVE_PAD)
+	else if (keysym == ONE_PAD || keysym == TWO_PAD
+		|| keysym == THREE_PAD || keysym == FOUR_PAD || keysym == FIVE_PAD)
 	{
 		if (fractal->fractal_type == 3)
 			fractal->fractal_type = 1;
