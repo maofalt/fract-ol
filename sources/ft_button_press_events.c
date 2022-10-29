@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 16:21:40 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 16:52:35 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,28 @@ void	ft_rotate_palette(int keysym, t_data *data)
 	fractal->palette[6] = (fractal->palette[6] + (sign * 0x00F010));
 	fractal->palette[7] = (fractal->palette[7] + (sign * 0xF00010));
 	fractal->palette[8] = (fractal->palette[8] + (sign * 0x005010));
+}
+
+void	ft_pad_numbers(int keysym, t_data *data)
+{
+	t_fractal	*fractal;
+
+	fractal = data->fractal;
+	if (keysym == SIX_PAD && fractal->fractal_type == 1)
+		fractal->fractal_type = 3;
+	else
+	{
+		if (fractal->fractal_type == 3)
+			fractal->fractal_type = 1;
+		if (keysym == ONE_PAD)
+			fractal->color_method = 1;
+		else if (keysym == TWO_PAD)
+			fractal->color_method = 2;
+		else if (keysym == THREE_PAD)
+			fractal->color_method = 3;
+		else if (keysym == FOUR_PAD)
+			fractal->color_method = 4;
+		else if (keysym == FIVE_PAD)
+			fractal->color_method = 5;
+	}
 }

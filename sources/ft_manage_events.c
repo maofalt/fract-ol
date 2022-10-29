@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 16:18:24 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 16:52:59 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,46 +20,15 @@ int	ft_handle_keypress(int keysym, t_data *data)
 	ft_destroy_window_button(keysym, data);
 	ft_movements_keys(keysym, data);
 	ft_rotate_palette(keysym, data);
+	ft_pad_numbers(keysym, data);
 	if (keysym == BRACE_L_KEY)
 		fractal->r /= 2.0;
 	if (keysym == BRACE_R_KEY)
-		fractal->r *= 2.0;	
+		fractal->r *= 2.0;
 	if (keysym == MINUS_KEY)
 		fractal->max_iter -= 10;
 	if (keysym == PLUS_KEY)
 		fractal->max_iter += 10;
-	if (keysym == ONE_PAD)
-	{
-		fractal->color_method = 1;
-		if (fractal->fractal_type == 3)
-			fractal->fractal_type = 1;
-	}
-	else if (keysym == TWO_PAD)
-	{
-		if (fractal->fractal_type == 3)
-			fractal->fractal_type = 1;
-		fractal->color_method = 2;
-	}	
-	else if (keysym == THREE_PAD)
-	{
-		if (fractal->fractal_type == 3)
-			fractal->fractal_type = 1;
-		fractal->color_method = 3;
-	}
-	else if (keysym == FOUR_PAD)
-	{
-		if (fractal->fractal_type == 3)
-			fractal->fractal_type = 1;
-		fractal->color_method = 4;
-	}
-	else if (keysym == FIVE_PAD)
-	{
-		if (fractal->fractal_type == 3)
-			fractal->fractal_type = 1;
-		fractal->color_method = 5;
-	}
-	else if (keysym == SIX_PAD && fractal->fractal_type == 1)
-		fractal->fractal_type = 3;
 	if (keysym == X_KEY || keysym == Z_KEY)
 	{
 		if (keysym == X_KEY)

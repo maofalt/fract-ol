@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 16:17:27 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 16:38:47 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void		ft_destroy_window_button(int keysym, t_data *data);
 void		ft_movements_keys(int keysym, t_data *data);
 	/* ']' & ']' alllow us to cycle the color palette*/
 void		ft_rotate_palette(int keysym, t_data *data);
+	/*Pad nbrs 1-6 change color structure*/
+void		ft_pad_numbers(int keysym, t_data *data);
 int			ft_handle_keypress(int keysym, t_data *data);
 int			ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data);
 int			ft_handle_keyrelease(int keysym, t_data *data);
