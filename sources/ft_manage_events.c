@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 17:02:31 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 17:11:59 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,20 @@ int	ft_destroy_window(t_data *data)
 
 int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 {
-	double	delta_re = data->fractal->xtrm.re_max - data->fractal->xtrm.re_min;
-	double	delta_im = data->fractal->xtrm.im_max - data->fractal->xtrm.im_min;
-	double	delta_derr = 0, delta_deri = 0;
+	double	delta_re;
+	double	delta_im;
+	double	delta_derr;
+	double	delta_deri;
 	double xRatio = (double)x / WINDOW_WIDTH;
 	double yRatio = (double)y / WINDOW_HEIGHT;
 	double	scalefactor = 1 / 1.1;
 
+	delta_re = data->fractal->xtrm.re_max - data->fractal->xtrm.re_min;
+	delta_im = data->fractal->xtrm.im_max - data->fractal->xtrm.im_min;
+	delta_derr = 0;
+	delta_deri = 0;
+	xRatio = (double)x / WINDOW_WIDTH;
+	yRatio = (double)y / WINDOW_HEIGHT;
 	if (buttonsym == 4)
 	{
 		delta_derr = (scalefactor * delta_re) - delta_re;

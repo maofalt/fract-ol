@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_button_press_events.c                           :+:      :+:    :+:   */
+/*   ft_key_press_events.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 17:05:58 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 17:53:59 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_pad_numbers(int keysym, t_data *data)
 	fractal = data->fractal;
 	if (keysym == SIX_PAD && fractal->fractal_type == 1)
 		fractal->fractal_type = 3;
-	else
+	else if (keysym == ONE_PAD || keysym == TWO_PAD || keysym == THREE_PAD || keysym == FOUR_PAD || keysym == FIVE_PAD)
 	{
 		if (fractal->fractal_type == 3)
 			fractal->fractal_type = 1;
