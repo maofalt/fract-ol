@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 02:20:05 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 02:21:00 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_render_fractal(t_img *img, t_fractal *fractal)
 		return (1);
 	y->min = 0;
 	y->max = WINDOW_HEIGHT;
-	ft_recenter_fractal(fractal, y);
+	ft_calculation_limits(fractal, y);
 	/*create void	ft_calculate_pixels(t_data *data, t_distance y) creae px,py in new function and  */
 	py = 0;
 	py = y->min;
