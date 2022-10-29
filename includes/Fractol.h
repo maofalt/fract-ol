@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 22:23:03 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 23:43:16 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ size_t		ft_initialize_fractal_type(int argc, char **argv);
 t_fractal	*ft_initialize_fractal(char **argv, int argc);
 void		ft_cal_mandel(t_img *img, t_fractal *fractal, size_t px, size_t py);
 size_t		ft_mandel_loop(t_fractal *fractal);
-void		ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py);
-void		ft_calculate_burning_ship(t_img *img, t_fractal *fractal, size_t px, size_t py);
+void		ft_cal_julia(t_img *img, t_fractal *fractal, size_t px, size_t py);
+void		ft_cal_burn_ship(t_img *img, t_fractal *fractal, size_t px, size_t py);
 
 /*############################################################################*/
 /*                      CALCULATE MATH COMPLEXE                               */

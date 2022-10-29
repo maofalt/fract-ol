@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 18:39:16 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 23:55:31 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	ft_handle_keypress(int keysym, t_data *data)
 
 	fractal = data->fractal;
 	ft_destroy_window_button(keysym, data);
-	ft_movements_keys(keysym, data);
+	if (keysym == UP_KEY || keysym == DOWN_KEY || keysym == RIGHT_KEY
+		|| keysym == LEFT_KEY)
+		ft_movements_keys(keysym, data);
 	ft_rotate_palette(keysym, data);
 	ft_pad_numbers(keysym, data);
 	ft_keyboard_press(keysym, data);

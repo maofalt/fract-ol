@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 22:27:15 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 23:47:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ size_t	ft_mandel_loop(t_fractal *fractal)
 	return (i);
 }
 
-void	ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
+void	ft_cal_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	size_t	i;
 
@@ -104,8 +104,8 @@ void	ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
 	fractal->polar_coord = fractal->z_const;
 	fractal->sq_coord = ft_initialize_coord();
 	i = 0;
-	while (((fractal->sq_coord.x + fractal->sq_coord.y) < fractal->r *fractal->r)
-		&& (i < fractal->max_iter))
+	while (((fractal->sq_coord.x + fractal->sq_coord.y)
+			< fractal->r * fractal->r) && (i < fractal->max_iter))
 	{
 		fractal->w = (fractal->px_coord.x * fractal->px_coord.x) - (fractal->px_coord.y * fractal->px_coord.y);
 		fractal->px_coord.y = (2 * fractal->px_coord.x * fractal->px_coord.y) + fractal->polar_coord.y;
@@ -117,7 +117,7 @@ void	ft_calculate_julia(t_img *img, t_fractal *fractal, size_t px, size_t py)
 	img_pix_put(img, px, py, ft_color_fractal(fractal, i));
 }
 
-void	ft_calculate_burning_ship(t_img *img, t_fractal *fractal, size_t px, size_t py)
+void	ft_cal_burn_ship(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	size_t	i;
 
