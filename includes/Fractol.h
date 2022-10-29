@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 02:04:06 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 02:16:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,8 @@ int			ft_render(t_data *data);
 	/*Deprecated functions, for test and debug functions intended **
 	**to fill mlx_img with one color*/
 void		ft_render_background(t_img *img, int color);
-	/*We calclate the exact offst for each  fractal type in order to center it*/
-void		ft_recenter_fractal(t_fractal *fractal, t_distance *y);
+	/*For mandelbrot (except 2) we optimize to calculae only haf of it*/
+void		ft_calculation_limits(t_fractal *fractal, t_distance *y);
 int			ft_render_fractal(t_img *img, t_fractal *fractal);
 
 /*############################################################################*/

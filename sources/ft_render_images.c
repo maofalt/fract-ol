@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 02:09:03 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 02:20:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,12 @@ void	ft_render_background(t_img *img, int color)
 	}
 }
 
-	/*We calclate the exact offst for each  fractal type in order to center it*/
-void	ft_recenter_fractal(t_fractal *fractal, t_distance *y)
+	/*For mandelbrot (except 2) we optimize only calculation have of it**
+	 with symmtry of the Real axis. For this wedetect the size imaginary **
+	 **size the the most pixel and limit our calculation to only that side.
+	 This willa llow us to memcpy to ther other side, saving calculation time
+	**/
+void	ft_calculation_limits(t_fractal *fractal, t_distance *y)
 {
 	if (fractal->fractal_type == 1)
 	{
@@ -67,19 +71,21 @@ void	ft_recenter_fractal(t_fractal *fractal, t_distance *y)
 	}
 }
 
+/*replace t_img *img, t_fractal *fractal by t_data *data */
 int	ft_render_fractal(t_img *img, t_fractal *fractal)
 {
 	size_t			px;
 	size_t			py;
 	t_distance		*y;
 
-	py = 0;
 	y = malloc(sizeof(t_distance));
 	if (y == NULL)
 		return (1);
 	y->min = 0;
 	y->max = WINDOW_HEIGHT;
 	ft_recenter_fractal(fractal, y);
+	/*create void	ft_calculate_pixels(t_data *data, t_distance y) creae px,py in new function and  */
+	py = 0;
 	py = y->min;
 	while (py <= y->max)
 	{
@@ -96,6 +102,10 @@ int	ft_render_fractal(t_img *img, t_fractal *fractal)
 		}
 		py++;
 	}
+	/*stop here*/
+	/* function for mandelbrot allowing us to memcpy the "big size" and saving time**
+	**weapply the same formulae as mxl_put pixel on img */
+/*void ft_optimization_symmetry( t_data *data, t_distance) create again size py*/
 	if (fractal->fractal_type == 1)
 	{
 		py = 0;
@@ -113,6 +123,7 @@ int	ft_render_fractal(t_img *img, t_fractal *fractal)
 			py++;
 		}
 	}
+	/* stop here */
 	free(y);
 	return (0);
 }
