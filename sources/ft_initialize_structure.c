@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 23:18:26 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 00:28:25 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,6 @@ t_xtrm	ft_initialize_extremes(size_t fractal_type)
 		xtrm.im_max = 1;
 		xtrm.im_min = -1;
 	}
-	else
-	{
-		xtrm.re_max = 2;
-		xtrm.re_min = -2;
-		xtrm.im_max = 2;
-		xtrm.im_min = -2;
-	}
 	return (xtrm);
 }
 
@@ -128,26 +121,4 @@ t_zoom	ft_initialize_zoom(size_t fractal_type)
 		zoom.ky = 4.0 / WINDOW_HEIGHT;
 	}
 	return (zoom);
-}
-
-t_coord	ft_initialize_complexe(t_fractal fractal, char **argv, int argc)
-{
-	t_coord	cmplx;
-
-	if (fractal.fractal_type == 1)
-		cmplx = ft_initialize_coord();
-	else if (fractal.fractal_type == 2 && argc == 2)
-	{
-		cmplx.x = fractal.z_const.x;
-		cmplx.y = fractal.z_const.y;
-	}
-	else if (fractal.fractal_type == 2 && argc < 5)
-	{
-		cmplx.x = ft_atof(argv[2]);
-		cmplx.y = ft_atof(argv[3]);
-		printf("During %f %f\n", cmplx.x, cmplx.y);
-	}
-	else
-		cmplx = ft_initialize_coord();
-	return (cmplx);
 }

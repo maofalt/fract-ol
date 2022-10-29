@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 18:53:01 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 00:22:26 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,18 @@ int	ft_check_shapes(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	double	q;
 
-	q = pow(fractal->px_coord.x - 0.25, 2) + (fractal->px_coord.y * fractal->px_coord.y);
-	if (0.25 * fractal->px_coord.y * fractal->px_coord.y >= (q * (q + (fractal->px_coord.x - 0.25))) ||
-		(pow(fractal->px_coord.x + 1, 2) + (fractal->px_coord.y * fractal->px_coord.y) <= (double)1/16))
+	q = pow(fractal->px_coord.x - 0.25, 2)
+		+ (fractal->px_coord.y * fractal->px_coord.y);
+	if (0.25 * fractal->px_coord.y * fractal->px_coord.y
+		>= (q * (q + (fractal->px_coord.x - 0.25)))
+		|| (pow(fractal->px_coord.x + 1, 2) + (fractal->px_coord.y
+				* fractal->px_coord.y) <= (double)1 / 16))
 	{
 		if (fractal->fractal_type == 3)
 			img_pix_put(img, px, py, 0x000000);
 		else
-			img_pix_put(img, px, py, ft_color_fractal(fractal, fractal->max_iter));
+			img_pix_put(img, px, py, ft_color_fractal(fractal,
+					fractal->max_iter));
 		return (1);
 	}
 	return (0);
@@ -60,7 +64,8 @@ int	ft_check_shapes(t_img *img, t_fractal *fractal, size_t px, size_t py)
 
 int	ft_check_period(t_fractal *fractal, double *period, size_t *i)
 {
-	if (fractal->polar_coord.x == fractal->old.x && fractal->polar_coord.y == fractal->old.y)
+	if (fractal->polar_coord.x == fractal->old.x
+		&& fractal->polar_coord.y == fractal->old.y)
 	{
 		*i = fractal->max_iter;
 		return (1);

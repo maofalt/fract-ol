@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 23:43:16 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 00:25:56 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int			ft_render_fractal(t_data *data);
 	**and saving time. We apply the same formulae as mxl_put pixel on img */
 void		ft_optimization_symmetry(t_data *data, t_distance *y);
 
-int			ft_check_shapes(t_img *img, t_fractal *fractal, size_t px, size_t py);
+int			ft_check_shapes(t_img *img, t_fractal *fractal,
+				size_t px, size_t py);
 
 int			ft_check_period(t_fractal *fractal, double *period, size_t *i);
 
@@ -110,7 +111,8 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc);
 void		ft_cal_mandel(t_img *img, t_fractal *fractal, size_t px, size_t py);
 size_t		ft_mandel_loop(t_fractal *fractal);
 void		ft_cal_julia(t_img *img, t_fractal *fractal, size_t px, size_t py);
-void		ft_cal_burn_ship(t_img *img, t_fractal *fractal, size_t px, size_t py);
+void		ft_cal_burn_ship(t_img *img, t_fractal *fractal,
+				size_t px, size_t py);
 
 /*############################################################################*/
 /*                      CALCULATE MATH COMPLEXE                               */

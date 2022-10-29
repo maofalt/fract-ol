@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:52:08 by motero            #+#    #+#             */
-/*   Updated: 2022/10/28 17:10:22 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 00:28:57 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ double	ft_atof(const char *nptr)
 	str = ft_split(nptr, '.');
 	a += (double)ft_atoi(str[0]);
 	if (ft_strlen(str[1]))
-		dec = (double)ft_atoi(str[1]) * (double)pow(10, -1 *(double)ft_strlen(str[1]));
+		dec = (double)ft_atoi(str[1]) * (double)pow(10, -1
+				* (double)ft_strlen(str[1]));
 	a += dec;
 	i = 0;
 	while (str[i])

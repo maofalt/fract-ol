@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 23:55:31 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 00:27:44 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ int	ft_handle_keyrelease(int keysym, t_data *data)
 {
 	(void)data;
 	if (keysym == XK_Escape)
-		printf("EScape released\n");
+		ft_printf("EScape released\n");
 	return (0);
 }
