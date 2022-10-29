@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 16:01:07 by motero            #+#    #+#             */
-/*   Updated: 2022/10/24 13:12:59 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 00:35:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 double			ft_atof(const char *nptr);
-
 
 typedef struct s_lst
 {
