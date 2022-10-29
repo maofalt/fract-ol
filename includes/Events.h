@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 16:38:47 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 17:05:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void		ft_movements_keys(int keysym, t_data *data);
 void		ft_rotate_palette(int keysym, t_data *data);
 	/*Pad nbrs 1-6 change color structure*/
 void		ft_pad_numbers(int keysym, t_data *data);
+	/*Rotate lightm inreas ehigh of light, incease Escape radius and nbr itera*/
+void		ft_keyboard_press(int keysym, t_data *data);
 int			ft_handle_keypress(int keysym, t_data *data);
 int			ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data);
 int			ft_handle_keyrelease(int keysym, t_data *data);

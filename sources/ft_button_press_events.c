@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 16:52:35 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 17:05:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_rotate_palette(int keysym, t_data *data)
 	fractal->palette[8] = (fractal->palette[8] + (sign * 0x005010));
 }
 
+	/*Pad nbrs 1-6 change color structure*/
 void	ft_pad_numbers(int keysym, t_data *data)
 {
 	t_fractal	*fractal;
@@ -93,5 +94,35 @@ void	ft_pad_numbers(int keysym, t_data *data)
 			fractal->color_method = 4;
 		else if (keysym == FIVE_PAD)
 			fractal->color_method = 5;
+	}
+}
+
+	/*Rotate lightm inreas ehigh of light, incease Escape radius and nbr itera*/
+void	ft_keyboard_press(int keysym, t_data *data)
+{
+	t_fractal	*fractal;
+
+	fractal = data->fractal;
+	if (keysym == BRACE_L_KEY)
+		fractal->r /= 2.0;
+	if (keysym == BRACE_R_KEY)
+		fractal->r *= 2.0;
+	if (keysym == MINUS_KEY)
+		fractal->max_iter -= 10;
+	if (keysym == PLUS_KEY)
+		fractal->max_iter += 10;
+	if (keysym == X_KEY || keysym == Z_KEY)
+	{
+		if (keysym == X_KEY)
+			fractal->angle -= 3;
+		if (keysym == Z_KEY)
+			fractal->angle += 3;
+	}
+	if (keysym == D_KEY || keysym == C_KEY)
+	{
+		if (keysym == D_KEY)
+			fractal->h += 0.1;
+		if (keysym == C_KEY)
+			fractal->h -= 0.1;
 	}
 }

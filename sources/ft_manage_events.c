@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 16:52:59 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 17:02:31 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,8 @@ int	ft_handle_keypress(int keysym, t_data *data)
 	ft_movements_keys(keysym, data);
 	ft_rotate_palette(keysym, data);
 	ft_pad_numbers(keysym, data);
-	if (keysym == BRACE_L_KEY)
-		fractal->r /= 2.0;
-	if (keysym == BRACE_R_KEY)
-		fractal->r *= 2.0;
-	if (keysym == MINUS_KEY)
-		fractal->max_iter -= 10;
-	if (keysym == PLUS_KEY)
-		fractal->max_iter += 10;
-	if (keysym == X_KEY || keysym == Z_KEY)
-	{
-		if (keysym == X_KEY)
-			fractal->angle -= 3;
-		if (keysym == Z_KEY)
-			fractal->angle += 3;
-	}
-	if (keysym == D_KEY || keysym == C_KEY)
-	{
-		if (keysym == D_KEY)
-			fractal->h += 0.1;
-		if (keysym == C_KEY)
-			fractal->h -= 0.1;
-	}
+	ft_keyboard_press(keysym, data);
 	fractal->update = 1;
-	printf("%d\n",keysym);
 	return (0);
 }
 
