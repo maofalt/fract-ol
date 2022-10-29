@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 21:49:29 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 22:07:33 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,8 @@ t_fractal	*ft_initialize_fractal(char **argv, int argc)
 void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t py)
 {
 	size_t			i;
-	t_coord			v;
-	t_coord			u;
-	double			q;
 	double			t;
 
-	v.x = cos(2.0 * fractal->angle * PI / 360.0);
-	v.y = sin(2.0 * fractal->angle * PI /360.0);
-	u = ft_initialize_coord();
-	q = 0;
-	t = 0;
 	fractal->px_coord.x = fractal->offset.x + (px * fractal->zoom.kx);
 	fractal->px_coord.y = fractal->offset.y - (py * fractal->zoom.ky);
 	fractal->w = 0;
@@ -64,21 +56,10 @@ void	ft_calculate_mandelbrot(t_img *img, t_fractal *fractal, size_t px, size_t p
 	if (fractal->fractal_type == 3)
 	{
 		if (i == fractal->max_iter)
-		{
-			img_pix_put(img, px, py, encode_rgb(1, 0,0,0));
-		}
+			img_pix_put(img, px, py, encode_rgb(1, 0, 0, 0));
 		else
 		{
-			q = (fractal->dc.x * fractal->dc.x) + (fractal->dc.y * fractal->dc.y);
-			u.x = ((fractal->polar_coord.x * fractal->dc.x) + (fractal->polar_coord.y * fractal->dc.y)) / q;
-			u.y = ((fractal->polar_coord.y * fractal->dc.x) - (fractal->polar_coord.x * fractal->dc.y)) / q;
-			q = sqrt((u.x * u.x) + (u.y * u.y));
-			u.x = u.x / q;
-			u.y = u.y / q;
-			t = (u.x * v.x) + (u.y * v.y) + fractal->h;
-			t = t / (1.0 + fractal->h);
-			if (t < 0.0)
-				t = 0.0;
+			t = ft_coloring_decision(fractal);
 			img_pix_put(img, px, py, encode_rgb(1, 255 * t, 255 * t, 255 * t));
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 19:26:08 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 22:08:09 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,28 @@ uint32_t	ft_color_method_45(t_fractal *fractal, double i)
 	if (fractal->color_method == 5)
 		color = ft_linear_interpolation(color, color2, temp);
 	return (color);
+}
+
+double	ft_coloring_decision(t_fractal *fractal)
+{
+	t_coord			v;
+	t_coord			u;
+	double			q;
+	double			t;
+
+	v.x = cos(2.0 * fractal->angle * PI / 360.0);
+	v.y = sin(2.0 * fractal->angle * PI / 360.0);
+	q = (fractal->dc.x * fractal->dc.x) + (fractal->dc.y * fractal->dc.y);
+	u.x = ((fractal->polar_coord.x * fractal->dc.x)
+			+ (fractal->polar_coord.y * fractal->dc.y)) / q;
+	u.y = ((fractal->polar_coord.y * fractal->dc.x)
+			- (fractal->polar_coord.x * fractal->dc.y)) / q;
+	q = sqrt((u.x * u.x) + (u.y * u.y));
+	u.x = u.x / q;
+	u.y = u.y / q;
+	t = (u.x * v.x) + (u.y * v.y) + fractal->h;
+	t = t / (1.0 + fractal->h);
+	if (t < 0.0)
+		t = 0.0;
+	return (t);
 }

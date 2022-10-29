@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 19:27:27 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 22:08:08 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define C7 0xee7674
 # define C8 0xf49690
 # define C9 0xf9b5ac
+# define PI 3.14159265359
 
 # include <stdlib.h>
 # include <stdint.h>
@@ -58,5 +59,5 @@ uint32_t	ft_color_fractal(t_fractal *fractal, double i);
 uint32_t	ft_color_method_0(t_fractal *fractal, double i);
 uint32_t	ft_color_method_123(t_fractal *fractal, double i);
 uint32_t	ft_color_method_45(t_fractal *fractal, double i);
-
+double		ft_coloring_decision(t_fractal *fractal);
 #endif
