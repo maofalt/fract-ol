@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 14:05:05 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 14:24:34 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,15 @@ void	ft_calculation_limits(t_fractal *fractal, t_distance *y)
 	}
 }
 
-/*replace t_img *img, t_fractal *fractal by t_data *data */
-int	ft_render_fractal(t_data *data)
+
+	/* pan into each px & apply and apply sequence formula 'til escape radius*/
+void	ft_calculate_pixels(t_data *data, t_distance *y)
 {
-	t_img			*img;
-	t_fractal		*fractal;
 	size_t			px;
 	size_t			py;
-	t_distance		*y;
+	t_img			*img;
+	t_fractal		*fractal;
 
-	y = malloc(sizeof(t_distance));
-	if (y == NULL)
-		return (1);
-	y->min = 0;
-	y->max = WINDOW_HEIGHT;
-	ft_calculation_limits(data->fractal, y);
-	/*create void	ft_calculate_pixels(t_data *data, t_distance y) creae px,py in new function and  */
 	img = &data->img;
 	fractal = data->fractal;
 	py = 0;
@@ -106,7 +99,25 @@ int	ft_render_fractal(t_data *data)
 		}
 		py++;
 	}
-	/*stop here*/
+}
+
+/*replace t_img *img, t_fractal *fractal by t_data *data */
+int	ft_render_fractal(t_data *data)
+{
+	t_img			*img;
+	t_fractal		*fractal;
+	t_distance		*y;
+	size_t			py;
+
+	img = &data->img;
+	fractal = data->fractal;
+	y = malloc(sizeof(t_distance));
+	if (y == NULL)
+		return (1);
+	y->min = 0;
+	y->max = WINDOW_HEIGHT;
+	ft_calculation_limits(data->fractal, y);
+	ft_calculate_pixels(data, y);
 	/* function for mandelbrot allowing us to memcpy the "big size" and saving time**
 	**weapply the same formulae as mxl_put pixel on img */
 /*void ft_optimization_symmetry( t_data *data, t_distance) create again size py*/

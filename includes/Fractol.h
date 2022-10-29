@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 12:34:04 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 14:20:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void		ft_render_background(t_img *img, int color);
 	/*For mandelbrot (except 2) we optimize to calculae only haf of it*/
 void		ft_calculation_limits(t_fractal *fractal, t_distance *y);
 	/* pan into each px & apply and apply sequence formula 'til escape radius*/
-void		ft_calculate_pixels(t_data *data, t_distance y);
+void		ft_calculate_pixels(t_data *data, t_distance *y);
 int			ft_render_fractal(t_data *data);
 
 /*############################################################################*/
