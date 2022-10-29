@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 15:08:17 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 21:41:07 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_fractal
 	t_coord		polar_coord;
 	t_coord		polar_der;
 	t_coord		sq_coord;
+	t_coord		dc;
 	t_coord		old;
 	t_zoom		zoom;
 	t_coord		offset;
