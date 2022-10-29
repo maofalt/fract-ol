@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 15:48:39 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 16:18:24 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,68 +14,12 @@
 
 int	ft_handle_keypress(int keysym, t_data *data)
 {
-	double		delta;
 	t_fractal	*fractal;
 
 	fractal = data->fractal;
-	delta = fractal->xtrm.im_max - fractal->xtrm.im_min;
 	ft_destroy_window_button(keysym, data);
-	if (keysym == UP_KEY || keysym == LEFT_KEY || keysym == DOWN_KEY || keysym == RIGHT_KEY)
-	{
-		if (keysym == DOWN_KEY)
-		{
-			fractal->xtrm.im_max += delta * 0.05;
-			fractal->xtrm.im_min += delta * 0.05;
-		}
-		else if (keysym == UP_KEY)
-		{
-			fractal->xtrm.im_max -= delta * 0.05;
-			fractal->xtrm.im_min -= delta * 0.05;
-		}
-		else if (keysym == RIGHT_KEY)
-		{
-			fractal->xtrm.re_max -= delta * 0.05;
-			fractal->xtrm.re_min -= delta * 0.05;
-		}
-		else if (keysym == LEFT_KEY)
-		{
-			fractal->xtrm.re_max += delta * 0.05;
-			fractal->xtrm.re_min += delta * 0.05;
-		}
-		fractal->zoom.kx = (fractal->xtrm.re_max - fractal->xtrm.re_min) / WINDOW_WIDTH;
-		fractal->zoom.ky = (fractal->xtrm.im_max - fractal->xtrm.im_min) / WINDOW_HEIGHT;
-		fractal->offset.x = fractal->xtrm.re_min;
-		fractal->offset.y = fractal->xtrm.im_max;
-		fractal->update = 1;
-	}
-	if (keysym == MINUS_PAD || keysym == PLUS_PAD)
-	{
-		if (keysym == PLUS_PAD)
-		{
-			fractal->palette[0] = (fractal->palette[0] + 0x1FEFE);
-			fractal->palette[1] = (fractal->palette[1] + 0x000005);
-			fractal->palette[2] = (fractal->palette[2] + 0x000006);
-			fractal->palette[3] = (fractal->palette[3] + 0x000002);
-			fractal->palette[4] = (fractal->palette[4] + 0x000003);
-			fractal->palette[5] = (fractal->palette[5] + 0x000110);
-			fractal->palette[6] = (fractal->palette[6] + 0x00F010);
-			fractal->palette[7] = (fractal->palette[7] + 0xF00010);
-			fractal->palette[8] = (fractal->palette[8] + 0x005010);
-		}
-		else if (keysym == MINUS_PAD)
-		{
-			fractal->palette[0] = (fractal->palette[0] - 0x1FEFE);
-			fractal->palette[1] = (fractal->palette[1] - 0x000005);
-			fractal->palette[2] = (fractal->palette[2] - 0x000006);
-			fractal->palette[3] = (fractal->palette[3] - 0x000002);
-			fractal->palette[4] = (fractal->palette[4] - 0x000003);
-			fractal->palette[5] = (fractal->palette[5] - 0x000110);
-			fractal->palette[6] = (fractal->palette[6] - 0x00F010);
-			fractal->palette[7] = (fractal->palette[7] - 0xF00010);
-			fractal->palette[8] = (fractal->palette[8] - 0x005010);
-		}
-		fractal->update = 1;
-	}
+	ft_movements_keys(keysym, data);
+	ft_rotate_palette(keysym, data);
 	if (keysym == BRACE_L_KEY)
 		fractal->r /= 2.0;
 	if (keysym == BRACE_R_KEY)
