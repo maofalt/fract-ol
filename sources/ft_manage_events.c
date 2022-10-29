@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/29 18:10:28 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/29 18:33:02 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,15 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 	t_coord		delta;
 	t_coord		delta_der;
 	t_coord		ratio;
-	double		scalefactor;
 	t_fractal	*fractal;
 
 	fractal = data->fractal;
 	delta.x = fractal->xtrm.re_max - fractal->xtrm.re_min;
 	delta.y = fractal->xtrm.im_max - fractal->xtrm.im_min;
-	delta_der = ft_initialize_coord();
 	ratio.x = (double)x / WINDOW_WIDTH;
 	ratio.y = (double)y / WINDOW_HEIGHT;
-	scalefactor = 1 / 1.1;
-	if (buttonsym == 4)
-	{
-		delta_der.x = (scalefactor * delta.x) - delta.x;
-		delta_der.y = (scalefactor * delta.y) - delta.y;
-	}	
-	else if (buttonsym == 5)
-	{
-		delta_der.x = ((1 / scalefactor) * delta.x) - delta.x;
-		delta_der.y = ((1 / scalefactor) * delta.y) - delta.y;
-	}
-	else if (buttonsym == 1)
+	delta_der = ft_button_press_actions(buttonsym, delta);
+	if (buttonsym == 1)
 	{
 		fractal->z_const.x = fractal->offset.x + (x * fractal->zoom.kx);
 		fractal->z_const.y = fractal->offset.y - (y * fractal->zoom.ky);
@@ -72,7 +60,7 @@ int	ft_handle_boutonpress(int buttonsym, int x, int y, t_data *data)
 		fractal->xtrm = ft_initialize_extremes(2);
 		fractal->offset = ft_initialize_offset(2);
 		fractal->zoom = ft_initialize_zoom(2);
-	}	
+	}
 	fractal->xtrm.re_min = fractal->xtrm.re_min - (delta_der.x * ratio.x);
 	fractal->xtrm.re_max = fractal->xtrm.re_max + (delta_der.x * (1 - ratio.x));
 	fractal->xtrm.im_max = fractal->xtrm.im_max + (delta_der.y * ratio.y);
@@ -91,4 +79,25 @@ int	ft_handle_keyrelease(int keysym, t_data *data)
 	if (keysym == XK_Escape)
 		printf("EScape released\n");
 	return (0);
+}
+
+t_coord	ft_button_press_actions(int buttonsym, t_coord delta)
+{
+	double		scalefactor;
+	t_coord		delta_der;
+
+	scalefactor = 1 / 1.1;
+	if (buttonsym == 4)
+	{
+		delta_der.x = (scalefactor * delta.x) - delta.x;
+		delta_der.y = (scalefactor * delta.y) - delta.y;
+	}	
+	else if (buttonsym == 5)
+	{
+		delta_der.x = ((1 / scalefactor) * delta.x) - delta.x;
+		delta_der.y = ((1 / scalefactor) * delta.y) - delta.y;
+	}
+	else
+		delta_der = ft_initialize_coord();
+	return (delta_der);
 }
