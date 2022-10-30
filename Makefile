@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/29 22:20:26 by motero           ###   ########.fr        #
+#    Updated: 2022/10/30 13:04:26 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,7 @@ OBJS_PATH_SANITIZE = objs_sanitize/
 OBJS_NAME_SANITIZE = $(SRCS_NAME_PS:.c=.o)
 OBJS_SANITIZE = $(addprefix $(OBJS_PATH_SANITIZE), $(OBJS_NAME_SANITIZE))
 
-SANITIZE_FLAG = -g3 -fsanitize=address
+SANITIZE_FLAG = -g3 -fsanitize=address -fno-omit-frame-pointer
 
 #=============================================================================#
 #                                 Valgrind                                    #
@@ -259,7 +259,7 @@ $(OBJS_PATH_VALGND)%.o: $(SRCS_DIR_PS)%.c $(HDRS) $(LIBFT)
 
 $(VALGND) : $(OBJS_PATH_VALGND) $(OBJS_VALGND) $(LIBFT) $(HDRS)
 		@echo "\n[$(GREEN)$(bold)VALGND COMPILATION"
-		@$(CC) $(CFLAGS) $(VALGND_FLAG) $(LIB_BINARY) $(OBJS_VALGND) -o $@
+		@$(CC) $(CFLAGS) $(VALGND_FLAG) $(OBJS_VALGND) $(LIB_BINARY) $(MINILIBX_BINARY) -o $@
 		@echo "\t[ $(GREEN)✔$(NONE) ] fractol_valgrind"
 
 
