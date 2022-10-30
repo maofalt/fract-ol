@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2022/10/24 16:31:39 by motero           ###   ########.fr        #
+#    Updated: 2022/10/30 12:30:34 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,9 @@ ft_putnbr_base.c \
 ft_putstr.c \
 ft_switch_cases.c\
 ft_switch_case_two.c\
-ft_printerror.c
+ft_printerror.c \
+ft_strcmp.c
+
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
 SRCS_PATH_PRINT = printf/sources

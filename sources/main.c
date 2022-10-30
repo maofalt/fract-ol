@@ -6,29 +6,11 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:06:37 by motero            #+#    #+#             */
-/*   Updated: 2022/10/30 00:59:32 by motero           ###   ########.fr       */
+/*   Updated: 2022/10/30 12:28:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Fractol.h>
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	while (s1[i] || s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
-	}
-	if (s1[i] == s2[i])
-		return (1);
-	return (0);
-}
 
 int	main(int argc, char **argv)
 {
